@@ -1,6 +1,27 @@
 export const ADD_STORE = 'ADD_STORE'
 export const LOADING = 'LOADING'
+export const SELECT_STORE = 'SELECT_STORE'
 
+
+export function setLoading(){
+  return {
+    type: LOADING
+  }
+}
+
+export function addStore(store){
+  return {
+    type: ADD_STORE,
+    payload: store
+  }
+}
+
+export function selectStore(store){
+  return {
+    type: SELECT_STORE,
+    payload: store
+  }
+}
 
 
 
@@ -56,23 +77,3 @@ export const LOADING = 'LOADING'
 //   }
 //
 // }
-
-export function setLoading(){
-  return {
-    type: LOADING
-  }
-}
-
-export function addStore(store){
-  return {
-    type: ADD_STORE,
-    payload: store
-  }
-}
-
-export function selectTool(tool){
-  return {
-    type: SELECT_TOOL,
-    payload: tool
-  }
-}
