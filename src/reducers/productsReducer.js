@@ -1,7 +1,7 @@
 import { LOADING, ADD_PRODUCT, SELECT_PRODUCT } from '../actions/productsActions'
 
 
-export default function Producers(state = {loading: false, products: [], selectedProducts: null}, action) {
+export default function Products(state = {loading: false, products: [], selectedProducts: null}, action) {
   switch(action.type) {
 
     case LOADING:
@@ -11,7 +11,7 @@ export default function Producers(state = {loading: false, products: [], selecte
       return Object.assign({}, state, {products: [...state, action.payload]})
 
     case SELECT_PRODUCT:
-      return Object.assign({}, state, {selectedProducer: action.payload})
+      return Object.assign({}, state, {selectedProduct: action.payload})
 
     default:
       return {...state}
