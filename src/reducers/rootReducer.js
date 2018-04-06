@@ -5,7 +5,7 @@ import Searches from './searchesReducer'
 import Messages from './messagesReducer'
 import Products from './productsReducer'
 
-const stockApp = combineReducers({
+const rootReducer = combineReducers({
   Stores,
   Producers,
   Searches,
@@ -14,4 +14,4 @@ const stockApp = combineReducers({
 })
 
 
-export default stockApp
+export default rootReducer
