@@ -18,13 +18,13 @@ class AreaSearchForm extends Component {
     console.log(e.target.value)
     this.setState({
       [e.target.name]: e.target.value
-    }, ()=>{console.log("Set state: ", this.state.location, this.state.radius)})
+    })
   }
 
   dropDownChange = (e, { value }) => {
     this.setState({
       radius: value
-    }, ()=>{console.log("Set radius state: ", this.state.radius)})
+    })
   }
 
   submitForm = () => {
@@ -33,9 +33,14 @@ class AreaSearchForm extends Component {
 
   }
 
+  setCenter = () => {
+
+
+  }
+
 
   render(){
-    
+
     return(
       <Form onSubmit={this.submitForm}>
         <Form.Group>
@@ -47,6 +52,16 @@ class AreaSearchForm extends Component {
       </Form>
     )
   }
+}
+
+
+function mapDispatchToProps(dispatch){
+  return {
+    setCenter: ()
+  }
+
+
+
 }
 
 export default AreaSearchForm

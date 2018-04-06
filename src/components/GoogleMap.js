@@ -55,7 +55,6 @@ class GoogleMap extends Component {
 
 
   render(){
-    console.log(process.env.REACT_APP_GOOGLE_MAP_KEY)
     return(
       <Map
         google={this.props.google}
