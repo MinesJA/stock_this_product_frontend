@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image, Checkbox } from 'semantic-ui-react'
+import { Card, Image, Checkbox } from 'semantic-ui-react'
 
 const Product = (props) => (
   <Card>

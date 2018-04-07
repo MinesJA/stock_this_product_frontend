@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 
 // COMPONENTS
 import SelectAreaContainer from './SelectAreaContainer'
@@ -15,7 +14,7 @@ class BrandWhereToBuyContainer extends Component {
   render() {
     return (
       <div>
-        <SelectAreaContainer history={this.props.history} />
+        <SelectAreaContainer />
         <SelectProductsContainer />
       </div>
     );

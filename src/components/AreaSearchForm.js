@@ -1,18 +1,30 @@
-import React, { Component } from 'react'
-import { Input, Dropdown, Form, Button } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Form } from 'semantic-ui-react';
+import { fetchGeocode } from '../actions/searchesActions'
+import { withRouter } from 'react-router'
 
 
 
 class AreaSearchForm extends Component {
-  state = {
-    options: [
-      {key: 5, text: "5 miles", value: 5 },
-      {key: 10, text: "10 miles", value: 10 },
-      {key: 20, text: "20 miles", value: 20 },
-    ],
-    location: "",
-    radius: "",
-  }
+    state = {
+      options: [
+        {key: 5, text: "5 miles", value: 5 },
+        {key: 10, text: "10 miles", value: 10 },
+        {key: 20, text: "20 miles", value: 20 },
+      ],
+      location: "",
+      radius: "",
+      center: this.props.center
+    }
+
+    componentWillReceiveProps(nextProps){
+      console.log(nextProps)
+      this.setState({
+        center: nextProps.center
+      })
+    }
+
 
   handleChange = (e) => {
     console.log(e.target.value)
@@ -28,14 +40,10 @@ class AreaSearchForm extends Component {
   }
 
   submitForm = () => {
-
+    let searchTerms = {location: this.state.location, radius: this.state.radius}
+    this.props.fetchGeocode(searchTerms)
     this.props.history.push("/showMap")
-
-  }
-
-  setCenter = () => {
-
-
+    console.log("On Submit: ", this.props.center)
   }
 
 
@@ -55,13 +63,22 @@ class AreaSearchForm extends Component {
 }
 
 
+function mapStateToProps(state){
+  return{
+    center: state.Searches.center
+  }
+}
+
+
 function mapDispatchToProps(dispatch){
   return {
-    setCenter: ()
+    fetchGeocode: (searchTerms) => {
+      dispatch(fetchGeocode(searchTerms))
+    }
   }
 
 
 
 }
 
-export default AreaSearchForm
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AreaSearchForm))

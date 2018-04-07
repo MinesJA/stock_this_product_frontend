@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Grid, Image } from 'semantic-ui-react'
 import ProductsList from '../../components/ProductsList'
 
 class  SelectProductsContainer extends Component {

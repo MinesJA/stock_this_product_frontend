@@ -19,13 +19,15 @@ class GoogleMap extends Component {
   }
 
 
+
+
   buildMarkers = () => {
-    return this.state.markers.map((marker)=>{
+    return this.state.markers.map((marker, index)=>{
       return (<Marker
+                key={index}
                 title={marker.title}
-                name={marker.name}
+                name={marker.title}
                 position={marker.position}
-                name={`${marker.title}`}
                 onClick={this.onMarkerClick} />)
         })
     }
@@ -55,12 +57,13 @@ class GoogleMap extends Component {
 
 
   render(){
+    console.log(this.props.center)
     return(
       <Map
         google={this.props.google}
         zoom={14}
         style={this.state.style}
-        initialCenter={this.state.initialCenter}
+        initialCenter={this.props.center}
         onClick={this.onMapClicked}
         >
 
@@ -78,6 +81,8 @@ class GoogleMap extends Component {
     )
   }
 }
+
+
 
 export default GoogleApiWrapper({
   apiKey: (process.env.REACT_APP_GOOGLE_MAP_KEY)
