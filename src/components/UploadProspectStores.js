@@ -1,12 +1,9 @@
 import React from 'react'
-import { Grid, Segment, List } from 'semantic-ui-react'
+import { Grid, Segment, List, Icon, Input } from 'semantic-ui-react'
 
 const UploadProspectStores = () => {
 
-
-
   return(
-
     <Grid stackable columns={1}>
       <Grid.Column>
         <Segment>
@@ -25,14 +22,18 @@ const UploadProspectStores = () => {
           </List>
         </Segment>
         <Segment>
-          <label for="file" class="ui icon button">
-            <i class="file icon"></i>
-            Open File</label>
-          <input type="file" id="file" style="display:none">
+          <Input
+           type="file"
+           icon='file text outline'
+           iconPosition='left'
+           label='Upload CSV'
+           labelPosition='right'
+           placeholder='UploadCSV...'
+         />
         </Segment>
-      </Grid.Column
+      </Grid.Column>
     </Grid>
-
-
   )
 }
+
+export default UploadProspectStores
