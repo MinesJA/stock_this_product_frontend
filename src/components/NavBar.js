@@ -16,7 +16,8 @@ class NavBar extends Component {
         <Menu.Item name='products' as={NavLink} exact to="/producers/1/products" active={activeItem === 'products'} onClick={()=>{console.log("Clicked home")}} />
         <Menu.Item name='whereToBuy' as={NavLink} exact to="/wheretobuy" active={activeItem === 'whereToBuy'} onClick={this.handleItemClick} />
         <Menu.Item name='about' as={NavLink} exact to="/about" active={activeItem === 'about'} onClick={()=>{console.log("Clicked about")}} />
-        <Menu.Item name='admin' as={NavLink} exact to="/admin" active={activeItem === 'admin'} onClick={this.handleItemClick} />
+        <Menu.Item name='searchreport' as={NavLink} exact to="/searchreport" active={activeItem === 'searchreport'} onClick={this.handleItemClick} />
+        <Menu.Item name='messagereport' as={NavLink} exact to="/messagereport" active={activeItem === 'messagereport'} onClick={this.handleItemClick} />
       </Menu>
     )
   }

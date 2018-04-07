@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import MessageListItem from './MessageListItem'
+import { Table } from 'semantic-ui-react'
+
 
 
 const MessagesTable = (props) => {
 
   const buildListItems = () => {
-    props.Messages.messages.map( (message)=>{
+    props.messages.map( (message)=>{
       return (
         <MessageListItem message={message} />
       )
@@ -31,11 +33,11 @@ const MessagesTable = (props) => {
   )
 }
 
-function mapStateToProps(state){
-  return{
-    Messages: state.Messages
-  }
-}
+// function mapStateToProps(state){
+//   return{
+//     Messages: state.Messages
+//   }
+// }
 
 
-export default connect(mapStateToProps)(MessagesTable)
+export default MessagesTable

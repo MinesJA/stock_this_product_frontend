@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Table } from 'semantic-ui-react'
 
 const MessageListItem = (props) => (
     <Table.Row>

@@ -43,7 +43,6 @@ export function fetchGeocode(searchTerms){
       payload: searchTerms.radius
     })
 
-  console.log("Hi fetch")
   return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerms.location}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`)
     .then(resp => resp.json())
     .then(result => {

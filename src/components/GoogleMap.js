@@ -1,33 +1,24 @@
 import React, { Component } from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
-
 class GoogleMap extends Component {
   state = {
     style: {width: '50%', height: '50%'},
     initialCenter: {lat: 40.707993, lng: -74.011387},
-    center: {lat: 40.854885, lng: -88.081807},
-    markers: [
-      {title:"Joe's Grocery", name:"joe", position: {lat: "40.713582", lng: "-74.008669"}, distance: ""},
-      {title:"Food n Stuff", name:"food", position: {lat: "40.708541", lng: "-74.008655"}, distance: ""},
-      {title:"Grocers Grocer", name:"grocers", position: {lat: "40.709780", lng: "-74.014549"}, distance: ""},
-      {title:"Food Here", name:"here", position: {lat: "40.705604", lng: "-74.014006"}, distance: ""}
-    ],
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
   }
 
-
-
-
   buildMarkers = () => {
-    return this.state.markers.map((marker, index)=>{
+    return this.props.stores.map((store, index)=>{
+      let position = {lat: store.lat, lng: store.long}
+
       return (<Marker
                 key={index}
-                title={marker.title}
-                name={marker.title}
-                position={marker.position}
+                title={store.name}
+                name={store.name}
+                position={position}
                 onClick={this.onMarkerClick} />)
         })
     }
@@ -51,13 +42,7 @@ class GoogleMap extends Component {
     }
   }
 
-  // fetchDistance = () => {
-  //   fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat,long}&destinations=${lat,long}&key=${googleMapsKey}`)
-  // }
-
-
   render(){
-    console.log(this.props.center)
     return(
       <Map
         google={this.props.google}
@@ -81,8 +66,6 @@ class GoogleMap extends Component {
     )
   }
 }
-
-
 
 export default GoogleApiWrapper({
   apiKey: (process.env.REACT_APP_GOOGLE_MAP_KEY)

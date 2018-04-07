@@ -48,26 +48,27 @@ class AreaSearchForm extends Component {
 
 
   render(){
-
     return(
-      <Form onSubmit={this.submitForm}>
-        <Form.Group>
-        <Form.Input onChange={this.handleChange} name="location" placeholder="Enter Zip Code, Address, or City..." />
-        <div>within...</div>
-        <Form.Dropdown onChange={this.dropDownChange} name="radius" placeholder='20 miles' wrapSelection={false} options={this.state.options} />
-        <Form.Button primary>FIND PROUDCTS</Form.Button>
-        </Form.Group>
-      </Form>
+      <div>
+        <div>FIND PRODUCTS NEAR YOU</div>
+
+        <Form onSubmit={this.submitForm}>
+          <Form.Group>
+          <Form.Input onChange={this.handleChange} name="location" placeholder="Enter Zip Code, Address, or City..." />
+          <div>within...</div>
+          <Form.Dropdown onChange={this.dropDownChange} name="radius" placeholder='20 miles' wrapSelection={false} options={this.state.options} />
+          <Form.Button primary>FIND PROUDCTS</Form.Button>
+          </Form.Group>
+        </Form>
+
+        <div> Choose specific products youre looking for below... </div>
+      </div>
     )
   }
 }
 
 
-function mapStateToProps(state){
-  return{
-    center: state.Searches.center
-  }
-}
+
 
 
 function mapDispatchToProps(dispatch){
@@ -76,9 +77,6 @@ function mapDispatchToProps(dispatch){
       dispatch(fetchGeocode(searchTerms))
     }
   }
-
-
-
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AreaSearchForm))
+export default withRouter(connect(null, mapDispatchToProps)(AreaSearchForm))

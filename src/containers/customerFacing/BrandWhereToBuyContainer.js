@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-
 // COMPONENTS
-import SelectAreaContainer from './SelectAreaContainer'
+import AreaSearchForm from '../../components/AreaSearchForm'
 import SelectProductsContainer from './SelectProductsContainer'
-
 
 class BrandWhereToBuyContainer extends Component {
 
-  // componentDidMount(){
-  //   this.props.fetchTools()
-  // }
 
   render() {
     return (
       <div>
-        <SelectAreaContainer />
+        <AreaSearchForm />
         <SelectProductsContainer />
       </div>
     );

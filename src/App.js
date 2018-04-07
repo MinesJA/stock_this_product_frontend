@@ -4,8 +4,10 @@ import { Route } from 'react-router-dom';
 // COMPONENTS
 import NavBar from './components/NavBar'
 import BrandWhereToBuyContainer from './containers/customerFacing/BrandWhereToBuyContainer'
-import BrandShowMapContainer from './containers/customerFacing/BrandShowMapContainer'
-import AdminContainer from './containers/AdminContainer'
+import BrandMapContainer from './containers/customerFacing/BrandMapContainer'
+import MessagesReportContainer from './containers/MessagesReportContainer'
+import UploadCSVContainer from './containers/UploadCSVContainer'
+import SearchesReportContainer from './containers/SearchesReportContainer'
 // STYLING
 import './App.css';
 
@@ -16,8 +18,10 @@ class App extends Component {
       <div>
         <NavBar />
         <Route path="/wheretobuy" exact component={BrandWhereToBuyContainer} />
-        <Route path="/showMap" exact component={BrandShowMapContainer} />
-        <Route path="/admin" exact component={AdminContainer} />
+        <Route path="/showMap" exact component={BrandMapContainer} />
+        <Route path="/messagesreport" exact component={MessagesReportContainer} />
+        <Route path="/uploadcsv" exact component={UploadCSVContainer} />
+        <Route path="/searchesreport" exact component={SearchesReportContainer} />
       </div>
     );
   }
