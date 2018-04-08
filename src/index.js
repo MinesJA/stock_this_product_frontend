@@ -17,7 +17,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-console.log(store.getState())
+console.log("Initial State from Index: ", store.getState())
 
 
 ReactDOM.render(

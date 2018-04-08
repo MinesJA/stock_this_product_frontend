@@ -29,15 +29,12 @@ class AreaSearchForm extends Component {
     })
   }
 
-  submitForm = () => {
+  submitForm = (e) => {
+    e.preventDefault()
     let searchTerms = {location: this.state.location, radius: this.state.radius}
     this.props.fetchGeocode(searchTerms)
-
-    if(this.props.searchObject.lat){
-      console.log("Submitform, searchObject returned: ", this.props.searchObject)
-      this.props.fetchStores(this.props.searchObject)
-      this.props.history.push("/showMap")
-    }
+    this.props.fetchStores(this.props.searchObject)
+    this.props.history.push("/showMap")
   }
 
 

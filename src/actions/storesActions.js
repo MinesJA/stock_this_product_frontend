@@ -25,16 +25,18 @@ export function selectStores(stores){
 export function fetchStores(searchObject){
 
   let options = {
-    method: "POST",
-    headers: {Accept: 'application/json',
-      'Content-Type': 'application/json'
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     body: JSON.stringify({
-      "stores": {
-        "latitude": searchObject.lat,
-        "longitude": searchObject.lng,
-        "radius": searchObject.radius
-      }
+      "stores":
+        {
+          "latitude": searchObject.lat,
+          "longitude": searchObject.lng,
+          "radius": searchObject.radius
+        }
     })
   }
 

@@ -9,6 +9,8 @@ class GoogleMap extends Component {
     selectedPlace: {},
   }
 
+  
+
   buildMarkers = () => {
     return this.props.stores.map((store, index)=>{
       let position = {lat: store.lat, lng: store.long}
@@ -40,7 +42,7 @@ class GoogleMap extends Component {
       })
     }
   }
-  
+
 
   render(){
     console.log("In GoogleMap: ", this.props.center)

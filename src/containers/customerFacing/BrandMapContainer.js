@@ -6,20 +6,42 @@ import HOCLoading from '../../HOC/HOCLoading'
 import { connect } from 'react-redux'
 
 class MapContainer extends Component {
+  state = {
+    center: {lat: null,
+             lng: null},
+    radius: null,
+    stores: []
+  }
+
+  componentWillReceiveProps(nextProps){
+    debugger;
+    this.setState({
+      center: {
+        lat: nextProps.searchObject.lat,
+        lng: nextProps.searchObject.lng
+      },
+      radius: nextProps.searchObject.radius,
+      stores: nextProps.searchObject.selectedStores
+    })
+
+  }
 
   render(){
-    let center = {lat: this.props.searchTerms.latitude, lng: this.props.searchTerms.longitude}
-    let radius = this.props.searchTerms.radius
+    let center = {lat: this.props.searchObject.lat, lng: this.props.searchObject.lng}
+    let radius = this.props.searchObject.radius
+    // Could have conditional that checks "buys" attribute of first store.
+    // If buys attribute is false, then serve different map with different markers setup.
+    // May be easier than dynamically rendering in GoogleMap component
     return(
       <div>
         <AreaSearchForm />
         <GoogleMap
-          center={center}
-          radius={radius}
-          stores={this.props.selectedStores}
+          center={this.state.center}
+          radius={this.state.radius}
+          stores={this.state.stores}
         />
         <StoreList
-          stores={this.props.selectedStores}/>
+          stores={this.state.stores}/>
       </div>
     )
   }
@@ -28,7 +50,7 @@ class MapContainer extends Component {
 function mapStateToProps(state){
   return{
     searchLoading: state.Searches.loading,
-    searchTerms: state.Searches.search_terms,
+    searchObject: state.Searches.searchObject,
     selectedStores: state.Stores.selectedStores
   }
 }

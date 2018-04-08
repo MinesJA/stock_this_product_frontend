@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // COMPONENTS
 import AreaSearchForm from '../../components/AreaSearchForm'
 import SelectProductsContainer from './SelectProductsContainer'
+import EmailModal from '../../components/EmailModal'
 
 class BrandWhereToBuyContainer extends Component {
 
@@ -11,6 +12,7 @@ class BrandWhereToBuyContainer extends Component {
       <div>
         <AreaSearchForm />
         <SelectProductsContainer />
+        <EmailModal />
       </div>
     );
   }
