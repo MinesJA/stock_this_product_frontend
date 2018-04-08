@@ -1,65 +1,39 @@
-export const ADD_CENTER = 'ADD_CENTER'
-export const ADD_RADIUS = 'ADD_RADIUS'
-export const LOADING = 'LOADING'
-export const SELECT_SEARCH = 'SELECT_SEARCH'
+export const SET_SEARCH = 'SET_SEARCH'
+export const SEARCHES_LOADING = 'SEARCHES_LOADING'
 
 
-export function setLoading(){
+export function searchesLoading(){
   return {
-    type: LOADING
+    type: SEARCHES_LOADING
   }
 }
 
-export function addCenter(centerObj){
+export function setSearch(searchObj){
   return {
-    type: ADD_CENTER,
-    payload: centerObj
+    type: SET_SEARCH,
+    payload: searchObj
   }
 }
 
-export function addRadius(radius){
-  return {
-    type: ADD_RADIUS,
-    payload: radius
-  }
-}
+export const fetchGeocode = (searchTerms) => {
+  return(dispatch) => {
+    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerms.location}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`)
+      .then(resp => resp.json())
+      .then(result => {
 
-export function selectSearch(search){
-  return {
-    type: SELECT_SEARCH,
-    payload: search
-  }
-}
+        let searchObject = {}
+        searchObject["lat"] = result.results[0].geometry.location.lat
+        searchObject["lng"] = result.results[0].geometry.location.lng
+        searchObject["radius"] = searchTerms.radius
 
-export function fetchGeocode(searchTerms){
-  return (dispatch) => {
-
-    dispatch({
-      type: LOADING
-    })
-
-    dispatch({
-      type: ADD_RADIUS,
-      payload: searchTerms.radius
-    })
-
-  return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerms.location}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`)
-    .then(resp => resp.json())
-    .then(result => {
-      let object = {}
-      object["lat"] = result.results[0].geometry.location.lat
-      object["long"] = result.results[0].geometry.location.lng
-
-      dispatch({
-        type: 'ADD_CENTER',
-        payload: object
-      })
-      dispatch({
-        type: LOADING
-      })
+        dispatch({
+          type: "SET_SEARCH",
+          payload: searchObject
+        })
     })
   }
 }
+
 
 
 
@@ -89,29 +63,6 @@ export function fetchGeocode(searchTerms){
 // }
 
 // export function addTool(tool){
-//   let options ={
-//     method: "PATCH",
-//     headers:
-//       {Accept: 'application/json',
-//        'Content-Type': 'application/json'},
-//     body:
-//       JSON.stringify({
-//       name: tool.name,
-//       description: tool.description,
-//       url: tool.url,
-//       tags: tool.tags
-//     })
-//   }
 //
-//   return (dispatch) => {
-//     return fetch(`http://localhost:3000/api/v1/tools/${tool.id}`, options)
-//     .then(resp => resp.json())
-//     .then(result => {
-//       dispatch({
-//         type: 'ADD_TOOL',
-//         payload: result
-//       })
-//     })
-//   }
 //
 // }

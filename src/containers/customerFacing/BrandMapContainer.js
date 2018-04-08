@@ -2,29 +2,24 @@ import React, { Component } from 'react'
 import GoogleMap from '../../components/GoogleMap'
 import { StoreList } from '../../components/StoreList'
 import AreaSearchForm from '../../components/AreaSearchForm'
-
+import HOCLoading from '../../HOC/HOCLoading'
+import { connect } from 'react-redux'
 
 class MapContainer extends Component {
 
-
-  componentDidReceiveProps(){
-    this.props.fetchStores()
-
-
-  }
-
-
   render(){
+    let center = {lat: this.props.searchTerms.latitude, lng: this.props.searchTerms.longitude}
+    let radius = this.props.searchTerms.radius
     return(
       <div>
         <AreaSearchForm />
         <GoogleMap
-          center={this.props.center}
-          radius={this.props.radius}
-          stores={this.props.stores}
+          center={center}
+          radius={radius}
+          stores={this.props.selectedStores}
         />
         <StoreList
-          stores={this.props.stores}/>
+          stores={this.props.selectedStores}/>
       </div>
     )
   }
@@ -33,10 +28,9 @@ class MapContainer extends Component {
 function mapStateToProps(state){
   return{
     searchLoading: state.Searches.loading,
-    center: state.Searches.center,
-    radius: state.Searches.radius,
-    stores: state.Stores.stores
+    searchTerms: state.Searches.search_terms,
+    selectedStores: state.Stores.selectedStores
   }
 }
 
-export default MapContainer
+export default connect(mapStateToProps)(MapContainer)

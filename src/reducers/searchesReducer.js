@@ -1,29 +1,19 @@
-import { LOADING, SELECT_SEARCH, ADD_CENTER, ADD_RADIUS } from '../actions/searchesActions'
+import { SEARCHES_LOADING, SET_SEARCH } from '../actions/searchesActions'
 
 const initialState = {
-  loading: false,
-  center: {
-    lat: null,
-    long: null,
-  },
-  radius: null,
-  selectedSearch: null}
+  searches_loading: false,
+  searchObject: {},
+  }
 
 
 export default function Searches(state = initialState, action) {
   switch(action.type) {
 
-    case LOADING:
-      return Object.assign({}, state, {loading: !state.loading})
+    case SEARCHES_LOADING:
+      return Object.assign({}, state, {searches_loading: !state.searches_loading})
 
-    case ADD_CENTER:
-      return Object.assign({}, state, {center: action.payload})
-
-    case ADD_RADIUS:
-      return Object.assign({}, state, {radius: action.payload})
-
-    case SELECT_SEARCH:
-      return Object.assign({}, state, {selectedSearch: action.payload})
+    case SET_SEARCH:
+      return Object.assign({}, state, {searchObject: action.payload})
 
     default:
       return {...state}

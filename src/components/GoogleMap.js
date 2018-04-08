@@ -4,7 +4,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 class GoogleMap extends Component {
   state = {
     style: {width: '50%', height: '50%'},
-    initialCenter: {lat: 40.707993, lng: -74.011387},
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
@@ -41,12 +40,16 @@ class GoogleMap extends Component {
       })
     }
   }
+  
 
   render(){
+    console.log("In GoogleMap: ", this.props.center)
     return(
+      <div>
+      { this.props.center ?
       <Map
         google={this.props.google}
-        zoom={14}
+        zoom={12}
         style={this.state.style}
         initialCenter={this.props.center}
         onClick={this.onMapClicked}
@@ -63,13 +66,13 @@ class GoogleMap extends Component {
             </div>
         </InfoWindow>
       </Map>
+    : null }
+    </div>
     )
   }
 }
 
-export default GoogleApiWrapper({
-  apiKey: (process.env.REACT_APP_GOOGLE_MAP_KEY)
-})(GoogleMap)
+export default GoogleApiWrapper({apiKey: (process.env.REACT_APP_GOOGLE_MAP_KEY)})(GoogleMap)
 
 // How to hide api keys: https://geodoo.work/hide-secure-api-keys-created-app-create-react-app/
 // https://www.npmjs.com/package/google-maps-react

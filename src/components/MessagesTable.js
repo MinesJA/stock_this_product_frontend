@@ -8,8 +8,10 @@ import { Table } from 'semantic-ui-react'
 const MessagesTable = (props) => {
 
   const buildListItems = () => {
-    props.messages.map( (message)=>{
+    return props.messages.map( (message)=>{
+
       return (
+
         <MessageListItem message={message} />
       )
     })

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react'
 
-function HOCLoading(Component){
-  return function WithLoadingComponent({ loading, ...props}){
+export default function loader(component){
+  console.log("Inside HOCLoading: ", component)
+  return class LoadingComponent extends Component{
 
-    if(!loading){
-      return (<Component {...props} />);
-    } else {
-      return (<p>Loading...</p>);
+
+
+    render(){
+      const Component = component
+      return (
+        this.props.loading ? <div>Loading</div> : <Component {...this.props}/>
+      )
     }
   }
 }
-
-export default HOCLoading;

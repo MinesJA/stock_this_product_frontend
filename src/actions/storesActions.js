@@ -1,12 +1,10 @@
 export const ADD_STORE = 'ADD_STORE'
-export const LOADING = 'LOADING'
+export const STORE_LOADING = 'STORE_LOADING'
 export const SELECT_STORES = 'SELECT_STORES'
-export const FETCH_NEAR = 'FETCH_NEAR'
 
-
-export function setLoading(){
+export function setStoreLoading(){
   return {
-    type: LOADING
+    type: STORE_LOADING
   }
 }
 
@@ -17,43 +15,54 @@ export function addStore(store){
   }
 }
 
-export function selectStores(store){
+export function selectStores(stores){
   return {
     type: SELECT_STORES,
-    payload: store
+    payload: stores
   }
 }
 
-export function fetchNear(searchObject){
-  return (dispatch) => {
+export function fetchStores(searchObject){
 
-    dispatch({
-      type: LOADING
-    })
-
-    let options = {
-      method: "POST",
-      headers: {Accept: 'application/json',
-        'Content-Type': 'application/json'
+  let options = {
+    method: "POST",
+    headers: {Accept: 'application/json',
+      'Content-Type': 'application/json'
     },
-      body: JSON.stringify({
-        "stores": searchObject
-      })
-    }
+    body: JSON.stringify({
+      "stores": {
+        "latitude": searchObject.lat,
+        "longitude": searchObject.lng,
+        "radius": searchObject.radius
+      }
+    })
+  }
 
-    return fetch(`http://localhost:3000/api/v1/stores/fetchnear`, options)
+  return(dispatch) => {
+    dispatch({
+      type: STORE_LOADING
+    })
+    fetch(`http://localhost:3000/api/v1/stores/fetchnear`, options)
       .then(resp => resp.json())
       .then(result => {
+
         dispatch({
           type: SELECT_STORES,
           payload: result
         })
+
         dispatch({
-          type: LOADING
+          type: STORE_LOADING
         })
-      })
+    })
   }
 }
+
+
+
+
+
+
 
 
 

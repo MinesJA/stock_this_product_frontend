@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react';
 import { fetchGeocode } from '../actions/searchesActions'
+import { fetchStores } from '../actions/storesActions'
 import { withRouter } from 'react-router'
-
-
 
 class AreaSearchForm extends Component {
     state = {
@@ -18,16 +17,7 @@ class AreaSearchForm extends Component {
       center: this.props.center
     }
 
-    componentWillReceiveProps(nextProps){
-      console.log(nextProps)
-      this.setState({
-        center: nextProps.center
-      })
-    }
-
-
   handleChange = (e) => {
-    console.log(e.target.value)
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -42,9 +32,15 @@ class AreaSearchForm extends Component {
   submitForm = () => {
     let searchTerms = {location: this.state.location, radius: this.state.radius}
     this.props.fetchGeocode(searchTerms)
-    this.props.history.push("/showMap")
-    console.log("On Submit: ", this.props.center)
+
+    if(this.props.searchObject.lat){
+      console.log("Submitform, searchObject returned: ", this.props.searchObject)
+      this.props.fetchStores(this.props.searchObject)
+      this.props.history.push("/showMap")
+    }
   }
+
+
 
 
   render(){
@@ -68,15 +64,21 @@ class AreaSearchForm extends Component {
 }
 
 
-
-
+function mapStateToProps(state){
+  return {
+    searchObject: state.Searches.searchObject
+  }
+}
 
 function mapDispatchToProps(dispatch){
   return {
     fetchGeocode: (searchTerms) => {
       dispatch(fetchGeocode(searchTerms))
+    },
+    fetchStores: (searchObject) => {
+      dispatch(fetchStores(searchObject))
     }
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(AreaSearchForm))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AreaSearchForm))
