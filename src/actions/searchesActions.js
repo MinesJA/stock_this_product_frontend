@@ -1,4 +1,3 @@
-import { fetchStores } from './storesActions'
 export const SET_SEARCH = 'SET_SEARCH'
 export const SEARCHES_LOADING = 'LOADING'
 
@@ -42,6 +41,28 @@ export const fetchGeocode = (searchTerms) => {
   }
 }
 
+export const postSearchTerms = (searchTerm, radius) => {
+  let options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      "searches":
+        {
+          "search_term": searchTerm,
+          "radius": radius
+        }
+    })
+  }
+
+  fetch('http://localhost:3000/api/v1/searches', options)
+    .then(resp => resp.json())
+    .then(result => {
+      console.log("Posted search to backend: ", result)
+    })
+}
 
 
 //

@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Feed } from 'semantic-ui-react'
 import Store from './Store'
 
+
 const StoreList = (props) => {
 
   const buildStores = () => {
@@ -15,12 +16,12 @@ const StoreList = (props) => {
     }
   }
 
-
+  console.log(props.searchObject)
   return(
     <Card>
       <Card.Content>
         <Card.Header>
-          Stores within { this.props.radius ? this.props.radius : null } miles
+          Stores within { props.searchObject ? props.searchObject.radius : null } miles
         </Card.Header>
       </Card.Content>
       <Card.Content>
@@ -34,10 +35,6 @@ const StoreList = (props) => {
   )
 }
 
-function mapStateToProps(state){
-  return{
-    radius: state.Searches.searchObject.radius
-  }
-}
+
 
 export default StoreList

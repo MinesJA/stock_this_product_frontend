@@ -14,11 +14,8 @@ class  SelectProductsContainer extends Component {
   }
 
   render(){
-    console.log(this.state.fakeProps)
     return(
-
         <ProductsList fakeProps={this.state.fakeProps} />
-
     )
   }
 

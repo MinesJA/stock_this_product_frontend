@@ -3,7 +3,7 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 class GoogleMap extends Component {
   state = {
-    initialCenter: {},
+    center: {},
     style: {width: '400px', height: '400px'},
     showingInfoWindow: false,
     activeMarker: {},
@@ -18,6 +18,14 @@ class GoogleMap extends Component {
        strokeColor: "red",
        scale: 5
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("Current props: ", this.props)
+    this.setState({
+      center: nextProps.center
+    })
+    console.log("Next props: ", nextProps)
   }
 
 
@@ -64,7 +72,7 @@ class GoogleMap extends Component {
         google={this.props.google}
         zoom={12}
         style={this.state.style}
-        initialCenter={this.props.center}
+        initialCenter={this.state.center}
         onClick={this.onMapClicked}
         >
 

@@ -1,9 +1,14 @@
 import React from 'react'
-import { Card, Feed, List } from 'semantic-ui-react'
+import { Card, Feed, List, Button } from 'semantic-ui-react'
 
 const Store = (props) => {
 
   let { name, address_one, city, state, zipcode, phone, email, buys } = props.storeObj
+
+  const emailThem = (e) => {
+
+    console.log("Emailed: ", name)
+  }
 
   return(
     <Feed.Event>
@@ -36,6 +41,16 @@ const Store = (props) => {
                 {phone} | {email}
               </List.Content>
             </List.Item>
+
+            { buys ?
+              null
+                :
+              <List.Item>
+                <List.Content>
+                  <Button size='medium' primary onClick={emailThem}>Email Them!</Button>
+                </List.Content>
+              </List.Item>
+            }
 
           </List>
 

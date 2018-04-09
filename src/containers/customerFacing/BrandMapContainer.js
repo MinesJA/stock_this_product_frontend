@@ -24,6 +24,7 @@ class MapContainer extends Component {
   render(){
     let center = {lat: this.props.searchObject.lat, lng: this.props.searchObject.lng}
     let radius = this.props.searchObject.radius
+    console.log("MapContainer: ", this.props.searchObject)
     return(
       <div>
         {this.renderModal()}
@@ -35,11 +36,11 @@ class MapContainer extends Component {
                 radius={radius}
                 stores={this.props.selectedStores}
               />
-
             </Grid.Column>
             <Grid.Column width={5}>
               <StoreList
-                stores={this.props.selectedStores}/>
+                stores={this.props.selectedStores}
+                searchObject={this.props.searchObject}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react';
-import { fetchGeocode } from '../actions/searchesActions'
+import { fetchGeocode, postSearchTerms } from '../actions/searchesActions'
 import { fetchStores } from '../actions/storesActions'
 import { withRouter } from 'react-router'
 import loader from '../HOC/HOCLoading'
@@ -32,13 +32,15 @@ class AreaSearchForm extends Component {
 
   submitForm = (e) => {
     e.preventDefault()
+
     let searchTerms = {location: this.state.location, radius: this.state.radius}
 
     this.props.fetchGeocode(searchTerms)
       .then((searchObject)=> {
         this.props.fetchStores(searchObject)
       })
-    // this.props.history.push("/showMap")
+
+    // this.props.postSearchTerms(this.state.location, this.state.radius)
   }
 
   render(){
@@ -76,7 +78,8 @@ function mapDispatchToProps(dispatch){
     },
     fetchStores: (searchObject) => {
       dispatch(fetchStores(searchObject))
-    }
+    },
+
   }
 }
 
