@@ -3,30 +3,42 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 class GoogleMap extends Component {
   state = {
-    style: {width: '50%', height: '50%'},
+    initialCenter: {},
+    style: {width: '400px', height: '400px'},
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
+    iconWon: {
+      path: this.props.google.maps.SymbolPath.CIRCLE,
+       strokeColor: "green",
+       scale: 5
+    },
+    iconProspect: {
+      path: this.props.google.maps.SymbolPath.CIRCLE,
+       strokeColor: "red",
+       scale: 5
+    }
   }
 
-  
 
   buildMarkers = () => {
-    return this.props.stores.map((store, index)=>{
-      let position = {lat: store.lat, lng: store.long}
+    if(this.props.stores.length > 0){
+      return this.props.stores.map((store, index)=>{
+        let position = {lat: store.latitude, lng: store.longitude}
 
-      return (<Marker
-                key={index}
-                title={store.name}
-                name={store.name}
-                position={position}
-                onClick={this.onMarkerClick} />)
-        })
+        return (<Marker
+                  key={index}
+                  title={store.name}
+                  name={store.name}
+                  position={position}
+                  icon={store.buys ? this.state.iconWon : this.state.iconProspect}
+                  onClick={this.onMarkerClick} />)
+      })
     }
+  }
 
 
   onMarkerClick = (props, marker, e) => {
-    console.log("Props: ", props, "Marker: ", marker, "e: ", e)
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -45,10 +57,9 @@ class GoogleMap extends Component {
 
 
   render(){
-    console.log("In GoogleMap: ", this.props.center)
     return(
-      <div>
-      { this.props.center ?
+
+
       <Map
         google={this.props.google}
         zoom={12}
@@ -68,8 +79,8 @@ class GoogleMap extends Component {
             </div>
         </InfoWindow>
       </Map>
-    : null }
-    </div>
+
+
     )
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Popup, Button, Header, Image, Modal, TextArea, Input, Label } from 'semantic-ui-react'
+import { Popup, Button, Modal, TextArea, Input, Label } from 'semantic-ui-react'
 
 class EmailModal extends Component {
   state = { open: false }

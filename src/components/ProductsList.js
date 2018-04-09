@@ -10,8 +10,8 @@ const ProductsList = (props) => {
       let { name, description, size, imagePath } = product
 
       return(
-        <Grid.Column>
-          <Product key={index} name={name} description={description} size={size} imagePath={imagePath} />
+        <Grid.Column key={index}>
+          <Product name={name} description={description} size={size} imagePath={imagePath} />
         </Grid.Column>
       )
     })

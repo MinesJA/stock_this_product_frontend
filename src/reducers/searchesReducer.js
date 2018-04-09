@@ -1,7 +1,7 @@
-import { SEARCHES_LOADING, SET_SEARCH } from '../actions/searchesActions'
+import { SET_SEARCH, SEARCHES_LOADING } from '../actions/searchesActions'
 
 const initialState = {
-  searches_loading: false,
+  searchesLoading: false,
   searchObject: {},
   }
 
@@ -10,10 +10,19 @@ export default function Searches(state = initialState, action) {
   switch(action.type) {
 
     case SEARCHES_LOADING:
-      return Object.assign({}, state, {searches_loading: !state.searches_loading})
+      return Object.assign(
+        {},
+        state,
+        {searchesLoading: true}
+      )
 
     case SET_SEARCH:
-      return Object.assign({}, state, {searchObject: action.payload})
+      return Object.assign(
+        {},
+        state,
+        {searchObject: action.payload,
+         searchesLoading: false}
+       )
 
     default:
       return {...state}

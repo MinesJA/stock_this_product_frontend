@@ -4,6 +4,7 @@ import { Form } from 'semantic-ui-react';
 import { fetchGeocode } from '../actions/searchesActions'
 import { fetchStores } from '../actions/storesActions'
 import { withRouter } from 'react-router'
+import loader from '../HOC/HOCLoading'
 
 class AreaSearchForm extends Component {
     state = {
@@ -32,13 +33,13 @@ class AreaSearchForm extends Component {
   submitForm = (e) => {
     e.preventDefault()
     let searchTerms = {location: this.state.location, radius: this.state.radius}
+
     this.props.fetchGeocode(searchTerms)
-    this.props.fetchStores(this.props.searchObject)
-    this.props.history.push("/showMap")
+      .then((searchObject)=> {
+        this.props.fetchStores(searchObject)
+      })
+    // this.props.history.push("/showMap")
   }
-
-
-
 
   render(){
     return(
@@ -63,14 +64,15 @@ class AreaSearchForm extends Component {
 
 function mapStateToProps(state){
   return {
-    searchObject: state.Searches.searchObject
+    searchObject: state.Searches.searchObject,
+    loading: state.Searches.searchesLoading && state.Stores.storesLoading,
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
     fetchGeocode: (searchTerms) => {
-      dispatch(fetchGeocode(searchTerms))
+      return dispatch(fetchGeocode(searchTerms))
     },
     fetchStores: (searchObject) => {
       dispatch(fetchStores(searchObject))
@@ -78,4 +80,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AreaSearchForm))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(loader(AreaSearchForm)))

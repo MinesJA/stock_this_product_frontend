@@ -2,7 +2,7 @@ export const ADD_STORE = 'ADD_STORE'
 export const STORE_LOADING = 'STORE_LOADING'
 export const SELECT_STORES = 'SELECT_STORES'
 
-export function setStoreLoading(){
+export function storesLoading(){
   return {
     type: STORE_LOADING
   }
@@ -41,9 +41,11 @@ export function fetchStores(searchObject){
   }
 
   return(dispatch) => {
+
     dispatch({
       type: STORE_LOADING
     })
+
     fetch(`http://localhost:3000/api/v1/stores/fetchnear`, options)
       .then(resp => resp.json())
       .then(result => {
@@ -53,70 +55,6 @@ export function fetchStores(searchObject){
           payload: result
         })
 
-        dispatch({
-          type: STORE_LOADING
-        })
     })
   }
 }
-
-
-
-
-
-
-
-
-
-// export function fetchTools(){
-//   return (dispatch) => {
-//     dispatch({
-//       type: LOADING
-//     })
-//
-//     return fetch('http://localhost:3000/api/v1/tools')
-//     .then(resp => resp.json())
-//     .then(result => {
-//       // When do I set loading back to false?
-//
-//
-//
-//       let payload = result.data.map((obj)=>{ return Object.assign(
-//         {}, {id: obj.id}, obj.attributes ) } )
-//
-//
-//       dispatch({
-//       type: LOAD_TOOLS,
-//       payload
-//       })
-//     })
-//   }
-// }
-
-// export function addTool(tool){
-//   let options ={
-//     method: "PATCH",
-//     headers:
-//       {Accept: 'application/json',
-//        'Content-Type': 'application/json'},
-//     body:
-//       JSON.stringify({
-//       name: tool.name,
-//       description: tool.description,
-//       url: tool.url,
-//       tags: tool.tags
-//     })
-//   }
-//
-//   return (dispatch) => {
-//     return fetch(`http://localhost:3000/api/v1/tools/${tool.id}`, options)
-//     .then(resp => resp.json())
-//     .then(result => {
-//       dispatch({
-//         type: 'ADD_TOOL',
-//         payload: result
-//       })
-//     })
-//   }
-//
-// }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import MessageListItem from './MessageListItem'
 import { Table } from 'semantic-ui-react'
 

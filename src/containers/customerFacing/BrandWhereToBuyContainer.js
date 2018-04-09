@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // COMPONENTS
-import AreaSearchForm from '../../components/AreaSearchForm'
-import SelectProductsContainer from './SelectProductsContainer'
-import EmailModal from '../../components/EmailModal'
+import AreaSearchForm from '../../components/AreaSearchForm';
+import SelectProductsContainer from './SelectProductsContainer';
+import BrandMapContainer from './BrandMapContainer';
 
 class BrandWhereToBuyContainer extends Component {
 
@@ -11,26 +12,16 @@ class BrandWhereToBuyContainer extends Component {
     return (
       <div>
         <AreaSearchForm />
-        <SelectProductsContainer />
-        <EmailModal />
+        { this.props.searchObject.lat ? <BrandMapContainer /> : <SelectProductsContainer /> }
       </div>
-    );
+    )
   }
 }
 
-// function mapStateToProps(state){
-//   return {
-//     tools: state.Tools.tools,
-//     selectedTool: state.Tools.selectedTool
-//   }
-// }
-//
-// function mapDispatchToProps(dispatch){
-//   return {
-//     fetchTools: () => {
-//       dispatch(fetchTools())
-//     }
-//   }
-// }
+function mapStateToProps (state) {
+  return {
+    searchObject: state.Searches.searchObject
+  }
+}
 
-export default BrandWhereToBuyContainer;
+export default connect(mapStateToProps)(BrandWhereToBuyContainer);

@@ -1,5 +1,6 @@
+import { fetchStores } from './storesActions'
 export const SET_SEARCH = 'SET_SEARCH'
-export const SEARCHES_LOADING = 'SEARCHES_LOADING'
+export const SEARCHES_LOADING = 'LOADING'
 
 
 export function searchesLoading(){
@@ -17,6 +18,11 @@ export function setSearch(searchObj){
 
 export const fetchGeocode = (searchTerms) => {
   return(dispatch) => {
+
+    dispatch({
+      type: SEARCHES_LOADING
+    })
+
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerms.location}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`)
       .then(resp => resp.json())
       .then(result => {
@@ -27,42 +33,15 @@ export const fetchGeocode = (searchTerms) => {
         searchObject["radius"] = searchTerms.radius
 
         dispatch({
-          type: "SET_SEARCH",
+          type: SET_SEARCH,
           payload: searchObject
         })
+
+        return searchObject
     })
   }
 }
 
 
 
-
-// export function fetchTools(){
-//   return (dispatch) => {
-//     dispatch({
-//       type: LOADING
-//     })
 //
-//     return fetch('http://localhost:3000/api/v1/tools')
-//     .then(resp => resp.json())
-//     .then(result => {
-//       // When do I set loading back to false?
-//
-//
-//
-//       let payload = result.data.map((obj)=>{ return Object.assign(
-//         {}, {id: obj.id}, obj.attributes ) } )
-//
-//
-//       dispatch({
-//       type: LOAD_TOOLS,
-//       payload
-//       })
-//     })
-//   }
-// }
-
-// export function addTool(tool){
-//
-//
-// }

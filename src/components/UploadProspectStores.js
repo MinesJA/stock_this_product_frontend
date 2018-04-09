@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Segment, List, Icon, Input } from 'semantic-ui-react'
+import { Grid, Segment, List, Input } from 'semantic-ui-react'
 
 const UploadProspectStores = () => {
 
