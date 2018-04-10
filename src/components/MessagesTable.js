@@ -7,11 +7,11 @@ import { Table } from 'semantic-ui-react'
 const MessagesTable = (props) => {
 
   const buildListItems = () => {
-    return props.messages.map( (message)=>{
+    return props.messages.map( (message, index)=>{
 
       return (
 
-        <MessageListItem message={message} />
+        <MessageListItem key={index} message={message} />
       )
     })
   }

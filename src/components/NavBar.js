@@ -13,11 +13,13 @@ class NavBar extends Component {
     return (
       <Menu stackable>
         <Menu.Item name='home' as={NavLink} exact to="/" active={activeItem === 'home'} onClick={()=>{console.log("Clicked home")}} />
-        <Menu.Item name='products' as={NavLink} exact to="/producers/1/products" active={activeItem === 'products'} onClick={()=>{console.log("Clicked home")}} />
+        <Menu.Item name='products' as={NavLink} exact to="/products" active={activeItem === 'products'} onClick={()=>{console.log("Clicked home")}} />
         <Menu.Item name='whereToBuy' as={NavLink} exact to="/wheretobuy" active={activeItem === 'whereToBuy'} onClick={this.handleItemClick} />
         <Menu.Item name='about' as={NavLink} exact to="/about" active={activeItem === 'about'} onClick={()=>{console.log("Clicked about")}} />
-        <Menu.Item name='searchreport' as={NavLink} exact to="/searchreport" active={activeItem === 'searchreport'} onClick={this.handleItemClick} />
-        <Menu.Item name='messagesreport' as={NavLink} exact to="/messagesreport" active={activeItem === 'messagesreport'} onClick={this.handleItemClick} />
+
+        <Menu.Menu position='right'>
+          <Menu.Item name='admin' as={NavLink} exact to="/login" active={activeItem === 'searchreport'} onClick={this.handleItemClick} />
+        </Menu.Menu>
       </Menu>
     )
   }
