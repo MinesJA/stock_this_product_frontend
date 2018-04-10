@@ -1,4 +1,4 @@
-import { USER_LOADING, ADD_USER, SIGN_UP } from '../actions/usersActions'
+import { USER_LOADING, GET_USER, LOG_OUT } from '../actions/usersActions'
 
 const initialState = {
   userLoading: false,
@@ -17,16 +17,19 @@ export default function Users(state = initialState, action) {
         {userLoading: true}
       )
 
-    case ADD_USER:
+    case GET_USER:
       return Object.assign(
         {},
         state,
-        {stores: [...state, action.payload],
-         userLoading: false}
+        {currentUser: action.payload, loggedIn: true, userLoading: false}
       )
 
-    case SIGN_UP:
-      return {...state, currentUser: action.payload, loggedIn: true}
+    case LOG_OUT:
+      return Object.assign(
+        {},
+        state,
+        {currentUser: null, loggedIn: false, userLoading: false}
+      )
 
     default:
       return {...state}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react';
-import { fetchGeocode, postSearchTerms } from '../actions/searchesActions'
+import { fetchGeocode } from '../actions/searchesActions'
 import { fetchStores } from '../actions/storesActions'
 import { withRouter } from 'react-router'
 import loader from '../HOC/HOCLoading'

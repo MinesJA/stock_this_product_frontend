@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Feed, List, Button } from 'semantic-ui-react'
+import { Feed, List, Button } from 'semantic-ui-react'
 
 const Store = (props) => {
 

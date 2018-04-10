@@ -7,7 +7,6 @@ import { Grid } from 'semantic-ui-react'
 // COMPONENTS
 import GoogleMap from '../../components/GoogleMap'
 import StoreList from '../../components/StoreList'
-import AreaSearchForm from '../../components/AreaSearchForm'
 import AlertModal from '../../components/AlertModal'
 
 class MapContainer extends Component {

@@ -11,6 +11,8 @@ import UploadCSVContainer from './containers/UploadCSVContainer'
 import SearchesReportContainer from './containers/SearchesReportContainer'
 import SignUpContainer from './containers/SignUpContainer'
 import LoginContainer from './containers/LoginContainer'
+import { getUser } from './actions/usersActions'
+import loader from './HOC/HOCLoading'
 // STYLING
 import './App.css';
 
@@ -18,10 +20,10 @@ import './App.css';
 class App extends Component {
 
   componentDidMount(){
-    let jwt = localStore.getItem("token")
+    let jwt = localStorage.getItem("token")
 
     if(jwt && !this.props.currentUser){
-      currentUser.
+      this.props.getUser(jwt, this.props.history)
     }
   }
 
@@ -35,9 +37,9 @@ class App extends Component {
 
         <Route path="/wheretobuy" exact component={BrandWhereToBuyContainer} />
 
-        <Route path="/uploadcsv" exact component={UploadCSVContainer} />
-        <Route path="/messagesreport" exact component={MessagesReportContainer} />
-        <Route path="/searchesreport" exact component={SearchesReportContainer} />
+        <Route path="/csvs" exact component={UploadCSVContainer} />
+        <Route path="/messages" exact component={MessagesReportContainer} />
+        <Route path="/searches" exact component={SearchesReportContainer} />
       </div>
     )
   }
@@ -49,4 +51,4 @@ function mapStateToProps(state){
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, { getUser })(loader(App)));

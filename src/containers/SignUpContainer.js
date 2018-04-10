@@ -14,6 +14,12 @@ class SignUpContainer extends Component {
     confirmation: "",
   }
 
+  componentDidMount(){
+    if(this.props.currentUser){
+      this.props.history.push("/messagesreport")
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -63,7 +69,12 @@ class SignUpContainer extends Component {
       </Card>
     )
   }
-
 }
 
-export default connect(null, { signUp } )(loader(SignUpContainer))
+function mapStateToProps(state){
+  return{
+    currentUser: state.Users.currentUser
+  }
+}
+
+export default connect(mapStateToProps, { signUp } )(loader(SignUpContainer))

@@ -10,6 +10,12 @@ class LoginContainer extends Component {
     password: "",
   }
 
+  componentDidMount(){
+    if(this.props.currentUser){
+      this.props.history.push("/messagesreport")
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -50,6 +56,12 @@ class LoginContainer extends Component {
 
 }
 
+function mapStateToProps(state){
+  return{
+    currentUser: state.Users.currentUser
+  }
+}
 
 
-export default connect(null, { login })(LoginContainer)
+
+export default connect(mapStateToProps, { login })(LoginContainer)

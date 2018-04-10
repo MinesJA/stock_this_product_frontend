@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import UploadWonStores from '../components/UploadWonStores'
-import UploadProspectStores from '../components/UploadProspectStores'
+import UploadStores from '../components/UploadStores'
 import { Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
@@ -18,10 +17,7 @@ class UploadCSVContainer extends Component {
       <Grid>
         <Grid.Row>
           <Grid.Column width={8}>
-            <UploadWonStores />
-          </Grid.Column>
-          <Grid.Column width={8}>
-            <UploadProspectStores />
+            <UploadStores />
           </Grid.Column>
         </Grid.Row>
       </Grid>

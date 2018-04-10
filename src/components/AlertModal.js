@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Popup, Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button, Image, Modal } from 'semantic-ui-react'
 
 class AlertModal extends Component {
   state = {
@@ -19,7 +19,7 @@ class AlertModal extends Component {
   }
 
   render() {
-    const { open, dimmer } = this.state
+    
 
     return (
         <Modal style={this.state.style} dimmer={'blurring'} open={this.state.open} onClose={this.close}>
