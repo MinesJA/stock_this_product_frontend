@@ -4,6 +4,7 @@ import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 // COMPONENTS
 import NavBar from './components/NavBar'
+import AdminNavBar from './components/AdminNavBar'
 import BrandWhereToBuyContainer from './containers/customerFacing/BrandWhereToBuyContainer'
 import MessagesReportContainer from './containers/MessagesReportContainer'
 import UploadCSVContainer from './containers/UploadCSVContainer'
@@ -15,10 +16,20 @@ import './App.css';
 
 
 class App extends Component {
+
+  componentDidMount(){
+    let jwt = localStore.getItem("token")
+
+    if(jwt && !this.props.currentUser){
+      currentUser.
+    }
+  }
+
   render() {
     return (
       <div>
-        <NavBar />
+        { this.props.currentUser ? <AdminNavBar /> : <NavBar /> }
+
         <Route path="/signup" exact component={SignUpContainer} />
         <Route path="/login" exact component={LoginContainer} />
 
@@ -34,7 +45,7 @@ class App extends Component {
 
 function mapStateToProps(state){
   return {
-    currentUser: state.currentUser
+    currentUser: state.Users.currentUser
   }
 }
 

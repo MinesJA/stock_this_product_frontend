@@ -72,17 +72,44 @@ export function login(username, password, history){
     fetch("http://localhost:3000/api/v1/signup", options)
       .then(res=> res.json())
       .then(response => {
-
-        localStorage.setItem("token", response.jwt)
-
-        dispatch({
-          type: GET_USER,
-          payload: response.user
+        if (response.error){
+          alert(response.error)
+        } else {
+          localStorage.setItem("token", response.jwt)
+          dispatch({
+            type: GET_USER,
+            payload: response.user
+          })
         })
-      })
+      }
       .then(()=>{
         history.push('/messagesreport')
       })
   }
 
 }
+
+
+
+export function getUser(jwt){
+
+  let options = {
+    headers: {
+      'Authorization': jwt
+    }
+  }
+
+  return (dispatch) => {
+    fetch('http://localhost:3000/api/v1/get_user', options)
+      .then(res => res.json())
+      .then()
+  }
+}
+
+
+
+
+
+
+
+//

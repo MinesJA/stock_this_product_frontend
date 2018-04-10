@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { login } from '../actions/usersActions'
 
 class LoginContainer extends Component {
   state = {
@@ -16,7 +18,8 @@ class LoginContainer extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state)
+
+    this.props.login(this.state.username, this.state.password, this.props.history)
   }
 
   render(){
@@ -47,4 +50,6 @@ class LoginContainer extends Component {
 
 }
 
-export default LoginContainer
+
+
+export default connect(null, { login })(LoginContainer)

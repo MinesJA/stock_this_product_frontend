@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MessagesTable from '../components/MessagesTable'
 import MessagesAnalytics from '../components/MessagesAnalytics'
-
+import { connect } from 'react-redux'
 
 class MessagesReportContainer extends Component {
   state = {
@@ -36,6 +36,12 @@ class MessagesReportContainer extends Component {
   // this is where messages need to be fetched from backend
   // Should be stored in state
 
+  componentDidMount(){
+    if(!this.props.currentUser){
+      this.props.history.push("/login")
+    }
+  }
+
 
   render(){
     return(
@@ -47,4 +53,10 @@ class MessagesReportContainer extends Component {
   }
 }
 
-export default MessagesReportContainer
+function mapStateToProps(state){
+  return{
+    currentUser: state.Users.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(MessagesReportContainer)
