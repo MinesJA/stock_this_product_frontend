@@ -1,13 +1,17 @@
 import React from 'react'
 import { Feed, List, Button } from 'semantic-ui-react'
+import { emailStore } from '../actions/messagesActions'
+import { connect } from 'react-redux'
 
 const Store = (props) => {
 
   let { name, address_one, city, state, zipcode, phone, email, buys } = props.storeObj
 
   const emailThem = (e) => {
+    let emailStoreObj = {name, email}
+    console.log("emailStoreObj: ", emailStoreObj)
 
-    console.log("Emailed: ", name)
+    props.emailStore(emailStoreObj)
   }
 
   return(
@@ -60,4 +64,6 @@ const Store = (props) => {
   )
 }
 
-export default Store
+
+
+export default connect(null, { emailStore })(Store)

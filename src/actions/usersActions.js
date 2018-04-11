@@ -30,7 +30,7 @@ export function signUp(producer_name, username, password, history){
     fetch("http://localhost:3000/api/v1/signup", options)
       .then(res=> res.json())
       .then(response => {
-        debugger;
+
         localStorage.setItem("token", response.jwt)
 
         dispatch({
@@ -56,7 +56,7 @@ export function login(username, password, history){
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      "users":
+      "auth":
         {
           username,
           password
@@ -131,8 +131,6 @@ export function logOut(history){
     dispatch({
       type: LOG_OUT
     })
-
-    history.push('/')
   }
 }
 

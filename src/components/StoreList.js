@@ -2,8 +2,8 @@ import React from 'react'
 import { Card, Feed } from 'semantic-ui-react'
 import Store from './Store'
 
-
 const StoreList = (props) => {
+
 
   const buildStores = () => {
     if(props.stores.length > 0){

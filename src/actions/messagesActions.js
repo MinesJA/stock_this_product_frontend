@@ -1,24 +1,65 @@
-export const ADD_MESSAGE = 'ADD_MESSAGE'
-export const LOADING = 'LOADING'
-export const SELECT_MESSAGE = 'SELECT_MESSAGE'
+export const SEND_MESSAGE = 'SEND_MESSAGE'
+export const MESSAGE_LOADING = 'LOADING'
+export const EMAIL_STORE = 'SELECT_MESSAGE'
 
 
-export function setLoading(){
+export function messagesLoading(){
   return {
-    type: LOADING
+    type: MESSAGE_LOADING
   }
 }
 
-export function addMessage(message){
+export function sendMessage(message){
+
+  let options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      "stores":
+        {
+          "latitude": searchObject.lat,
+          "longitude": searchObject.lng,
+          "radius": searchObject.radius
+        }
+    })
+  }
+
+  return(dispatch) => {
+
+    dispatch({
+      type: MESSAGE_LOADING
+    })
+
+    fetch('http://localhost:3000/api/v1/messages')
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   return {
-    type: ADD_MESSAGE,
+    type: SEND_MESSAGE,
     payload: message
   }
 }
 
-export function selectMessage(message){
+export function emailStore(store){
   return {
-    type: SELECT_MESSAGE,
-    payload: message
+    type: EMAIL_STORE,
+    payload: store
   }
 }
+// emailStore returns the store object which can be referenced in message composition

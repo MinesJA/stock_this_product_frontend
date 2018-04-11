@@ -8,10 +8,13 @@ import { Grid } from 'semantic-ui-react'
 import GoogleMap from '../../components/GoogleMap'
 import StoreList from '../../components/StoreList'
 import AlertModal from '../../components/AlertModal'
+import EmailModal from '../../components/EmailModal'
 
 class MapContainer extends Component {
   state = {
-    modalOpen: false
+    modalOpen: false,
+    emailModalOpen: false
+
   }
 
   renderModal = () => {
@@ -20,13 +23,21 @@ class MapContainer extends Component {
     }
   }
 
+  renderEmailModal = () => {
+    if(this.props.emailStore){
+      return <EmailModal />
+    }
+  }
+
+
   render(){
     let center = {lat: this.props.searchObject.lat, lng: this.props.searchObject.lng}
     let radius = this.props.searchObject.radius
-    console.log("MapContainer: ", this.props.searchObject)
     return(
       <div>
         {this.renderModal()}
+        {this.renderEmailModal()}
+
         <Grid celled>
           <Grid.Row>
             <Grid.Column width={11}>
@@ -53,7 +64,8 @@ function mapStateToProps(state){
     searchLoading: state.Searches.searchesloading,
     storesLoading: state.Stores.storesLoading,
     searchObject: state.Searches.searchObject,
-    selectedStores: state.Stores.selectedStores
+    selectedStores: state.Stores.selectedStores,
+    emailStore: state.Messages.emailStore
   }
 }
 

@@ -22,12 +22,12 @@ class GoogleMap extends Component {
 
   componentWillReceiveProps(nextProps){
     console.log("Current props: ", this.props)
+    console.log("Next props: ", nextProps)
     this.setState({
       center: nextProps.center
     })
-    console.log("Next props: ", nextProps)
-  }
 
+  }
 
   buildMarkers = () => {
     if(this.props.stores.length > 0){
@@ -44,7 +44,6 @@ class GoogleMap extends Component {
       })
     }
   }
-
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -65,14 +64,14 @@ class GoogleMap extends Component {
 
 
   render(){
+    console.log("Center going into Google Map: ", this.state.center)
     return(
-
-
       <Map
         google={this.props.google}
         zoom={12}
         style={this.state.style}
-        initialCenter={this.state.center}
+        initialCenter={this.props.center}
+        center={this.state.center}
         onClick={this.onMapClicked}
         >
 
@@ -87,8 +86,6 @@ class GoogleMap extends Component {
             </div>
         </InfoWindow>
       </Map>
-
-
     )
   }
 }

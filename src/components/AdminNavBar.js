@@ -19,7 +19,7 @@ class NavBar extends Component {
         <Menu.Item name="messagesreport" as={NavLink} exact to="/messages" active={activeItem === 'messagesreport'} onClick={this.handleItemClick} />
 
         <Menu.Menu position='right'>
-          <Menu.Item name='logout'  active={activeItem === 'logout'} onClick={()=>{this.props.logOut(this.props.history)}} />
+          <Menu.Item name='logout'  active={activeItem === 'logout'} onClick={()=>{this.props.logOut()}} />
         </Menu.Menu>
       </Menu>
     )

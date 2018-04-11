@@ -1,55 +1,62 @@
 import React, { Component } from 'react'
-import { Popup, Button, Modal, TextArea, Input, Label } from 'semantic-ui-react'
+import { Form, Modal, Button, Label } from 'semantic-ui-react'
+import { sendMessage } from '../actions/messagesActions'
+import { connect } from 'react-redux'
 
 class EmailModal extends Component {
-  state = { open: false }
+  state = {
+    open: true,
+    style: {
+      marginTop: '0px !important',
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    },
+    customerEmail: "",
+    producerEmail: "",
+    messageText: "",
+  }
 
-  show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => this.setState({ open: false })
+  sendEmail = () => {
+
+    this.setState({
+      open: false
+    })
+
+    this.props.sendMessage()
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    }, ()=>{console.log(this.state)})
+  }
 
   render() {
-    const { open, dimmer } = this.state
-
     return (
-      <div>
-        <Popup trigger={<Button onClick={this.show(false)}>Email Them</Button>}>
-          <Popup.Header>Heads up!</Popup.Header>
-          <Popup.Content>
-            Hello World
-          </Popup.Content>
-        </Popup>
-
-        <Modal dimmer={dimmer} open={open} onClose={this.close}>
+        <Modal style={this.state.style} dimmer={'blurring'} open={this.state.open} onClose={this.close}>
           <Modal.Header>Send Jerrys Mayo an email</Modal.Header>
-          <Modal.Content>
+          <Modal.Content image>
             <Modal.Description>
+              <Form>
+                <Label basic>To:</Label>
+                <Form.Input labelPosition='right' name="producerEmail" type='text' placeholder='jerry@jerrysmayo.com' onChange={this.handleChange} />
 
-            <Input labelPosition='right' type='text' placeholder='yourname@you.com'>
-              <Label basic>From:</Label>
-              <input />
-            </Input>
+                <Label basic>From:</Label>
+                <Form.Input labelPosition='right' name="customerEmail" type='text' placeholder='yourname@you.com' onChange={this.handleChange} />
 
-            <Input labelPosition='right' type='text' placeholder='jerry@jerrysmayo.com'>
-              <Label basic>To:</Label>
-              <input />
-            </Input>
-
-            <TextArea autoHeight fluid placeholder='Try adding multiple lines' style={{ minWidth: 800, minHeight: 200 }} />
-
-
-
+                <Form.TextArea autoHeight fluid name="text" placeholder='Try adding multiple lines' style={{ minWidth: 600, minHeight: 200 }} onChange={this.handleChange} />
+              </Form>
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
             <Button color='black' onClick={this.close}>
-              Go back.
+              Go back
             </Button>
-            <Button positive icon='mail outline' labelPosition='right' content="Send Email" onClick={this.close} />
+            <Button positive icon='mail outline' labelPosition='right' content="Send email" onClick={this.sendEmail} />
           </Modal.Actions>
         </Modal>
-      </div>
     )
   }
 }
 
-export default EmailModal
+export default connect(null, { sendMessage })(EmailModal)

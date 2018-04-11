@@ -22,6 +22,44 @@ export function selectStores(stores){
   }
 }
 
+
+export function postStores(csv, buys, user){
+
+  let formData = new FormData();
+  formData.append('file', csv);
+  formData.append('buys', buys)
+
+  let options = {
+    method: 'POST',
+    headers: {"Authorization": localStorage.getItem("token")},
+    body: formData
+  }
+
+  return(dispatch) => {
+    dispatch({
+      type: STORE_LOADING
+    })
+
+    fetch(`http://localhost:3000/api/v1/csvs`, options)
+      .then(resp => resp.json())
+      .then(result => {
+
+        alert(result.message)
+
+    })
+  }
+
+  // "csv_file": csv,
+  // "buys": buys,
+  // "producer_id": user.producer_id
+
+  // form_for @csv, url: csvs_path, html: { multipart: true } do |form|
+  //  form.file_field :csv_file
+  //  form.submit
+  // end
+
+}
+
 export function fetchStores(searchObject){
 
   let options = {
@@ -58,3 +96,11 @@ export function fetchStores(searchObject){
     })
   }
 }
+
+
+// export function initFileStack(){
+//
+//
+//
+//
+// }
