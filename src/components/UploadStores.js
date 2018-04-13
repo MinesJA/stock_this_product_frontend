@@ -12,7 +12,7 @@ class UploadStores extends Component {
   handleChange = (e) => {
     this.setState({
       csv: e.target.files[0]
-    }, console.log(this.state))
+    })
   }
 
   handleSubmit = (e) => {

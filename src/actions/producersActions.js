@@ -1,24 +1,40 @@
-export const ADD_PRODUCER = 'ADD_PRODUCER'
-export const LOADING = 'LOADING'
+export const PRODUCER_LOADING = 'PRODUCER_LOADING'
+export const FETCH_PRODUCERS = 'FETCH_PRODUCERS'
 export const SELECT_PRODUCER = 'SELECT_PRODUCER'
 
 
-export function setLoading(){
+export function producersLoading(){
   return {
-    type: LOADING
+    type: PRODUCER_LOADING
   }
 }
 
-export function addStore(producer){
-  return {
-    type: ADD_PRODUCER,
-    payload: producer
-  }
-}
 
-export function selectStore(producer){
+export function selectProducer(producer_id){
   return {
     type: SELECT_PRODUCER,
-    payload: producer
+    payload: producer_id
+  }
+}
+
+
+export function fetchProducers(){
+
+  return(dispatch) => {
+    dispatch({
+      type: PRODUCER_LOADING
+    })
+
+    return fetch(`http://localhost:3000/api/v1/producers`)
+      .then(resp => resp.json())
+      .then(result => {
+
+        dispatch({
+          type: FETCH_PRODUCERS,
+          payload: result
+        })
+
+        return result
+    })
   }
 }

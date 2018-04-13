@@ -1,47 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form } from 'semantic-ui-react';
-import { fetchGeocode } from '../actions/searchesActions'
+import { Form, Dropdown } from 'semantic-ui-react';
+import { fetchGeocode, postSearchTerms } from '../actions/searchesActions'
 import { fetchStores } from '../actions/storesActions'
+import { selectProducer } from '../actions/producersActions'
 import { withRouter } from 'react-router'
 import loader from '../HOC/HOCLoading'
 
 class AreaSearchForm extends Component {
-    state = {
-      options: [
-        {key: 5, text: "5 miles", value: 5 },
-        {key: 10, text: "10 miles", value: 10 },
-        {key: 20, text: "20 miles", value: 20 },
-      ],
-      location: "",
-      radius: "",
-      center: this.props.center
-    }
+  state = {
+    radiusOptions: [
+      {key: 5, text: "5 miles", value: 5 },
+      {key: 10, text: "10 miles", value: 10 },
+      {key: 20, text: "20 miles", value: 20 },
+    ],
+    searchTerm: "",
+    radius: "",
+    producer_id: "",
+  }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
+  renderProducerOptions = () => {
+    return this.props.producers.map((producer)=>{
+      return {key: producer.name, value: producer.id, text: producer.name}
     })
   }
 
-  dropDownChange = (e, { value }) => {
+  handleChange = (e, {name, value}) => {
     this.setState({
-      radius: value
+      [name]: value
     })
   }
 
   submitForm = (e) => {
     e.preventDefault()
 
-    let searchTerms = {location: this.state.location, radius: this.state.radius}
+    let searchContent = {searchTerm: this.state.searchTerm, radius: this.state.radius, producer_id: this.state.producer_id}
 
-    this.props.fetchGeocode(searchTerms)
+    this.props.fetchGeocode(searchContent)
       .then((searchObject)=> {
+        console.log("SubmitForm, searchObject: ", searchObject)
         this.props.fetchStores(searchObject)
+        this.props.postSearchTerms(searchObject)
+        this.props.selectProducer(searchContent.producer_id)
       })
-
-    // this.props.postSearchTerms(this.state.location, this.state.radius)
   }
+
 
   render(){
     return(
@@ -50,9 +53,10 @@ class AreaSearchForm extends Component {
 
         <Form onSubmit={this.submitForm}>
           <Form.Group>
-          <Form.Input onChange={this.handleChange} name="location" placeholder="Enter Zip Code, Address, or City..." />
+          <Form.Dropdown name="producer_id" placeholder="select producer" onChange={this.handleChange} selection wrapSelection={false} options={this.renderProducerOptions()} />
+          <Form.Input name="searchTerm" placeholder="Enter Zip Code, Address, or City..." onChange={this.handleChange} />
           <div>within...</div>
-          <Form.Dropdown onChange={this.dropDownChange} name="radius" placeholder='20 miles' wrapSelection={false} options={this.state.options} />
+          <Form.Dropdown name="radius" placeholder="20 miles" onChange={this.handleChange} selection wrapSelection={false} options={this.state.radiusOptions} />
           <Form.Button primary>FIND PROUDCTS</Form.Button>
           </Form.Group>
         </Form>
@@ -68,19 +72,9 @@ function mapStateToProps(state){
   return {
     searchObject: state.Searches.searchObject,
     loading: state.Searches.searchesLoading && state.Stores.storesLoading,
+    producers: state.Producers.producers
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    fetchGeocode: (searchTerms) => {
-      return dispatch(fetchGeocode(searchTerms))
-    },
-    fetchStores: (searchObject) => {
-      dispatch(fetchStores(searchObject))
-    },
 
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(loader(AreaSearchForm)))
+export default withRouter(connect(mapStateToProps, { fetchGeocode, fetchStores, postSearchTerms, selectProducer })(loader(AreaSearchForm)))

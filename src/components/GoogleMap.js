@@ -21,12 +21,9 @@ class GoogleMap extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("Current props: ", this.props)
-    console.log("Next props: ", nextProps)
     this.setState({
       center: nextProps.center
     })
-
   }
 
   buildMarkers = () => {
@@ -64,7 +61,6 @@ class GoogleMap extends Component {
 
 
   render(){
-    console.log("Center going into Google Map: ", this.state.center)
     return(
       <Map
         google={this.props.google}

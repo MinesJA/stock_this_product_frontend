@@ -16,7 +16,7 @@ class SignUpContainer extends Component {
 
   componentDidMount(){
     if(this.props.currentUser){
-      this.props.history.push("/messagesreport")
+      this.props.history.push("/messages")
     }
   }
 

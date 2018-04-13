@@ -6,12 +6,12 @@ import { connect } from 'react-redux'
 import NavBar from './components/NavBar'
 import AdminNavBar from './components/AdminNavBar'
 import BrandWhereToBuyContainer from './containers/customerFacing/BrandWhereToBuyContainer'
-import MessagesReportContainer from './containers/MessagesReportContainer'
+import AnalyticsContainer from './containers/AnalyticsContainer'
 import UploadCSVContainer from './containers/UploadCSVContainer'
-import SearchesReportContainer from './containers/SearchesReportContainer'
 import SignUpContainer from './containers/SignUpContainer'
 import LoginContainer from './containers/LoginContainer'
 import { getUser } from './actions/usersActions'
+
 import loader from './HOC/HOCLoading'
 // STYLING
 import './App.css';
@@ -38,8 +38,33 @@ class App extends Component {
         <Route path="/wheretobuy" exact component={BrandWhereToBuyContainer} />
 
         <Route path="/csvs" exact component={UploadCSVContainer} />
-        <Route path="/messages" exact component={MessagesReportContainer} />
-        <Route path="/searches" exact component={SearchesReportContainer} />
+        <Route path="/analytics" exact component={AnalyticsContainer} />
+
+
+
+
+        <Route path="/producer/:id" exact component={BrandHomeContainer} >
+          <Route path="/producer/:id/products" exact component={BrandProductsContainer} />
+          <Route path="/producer/:id/wheretobuy" exact component={BrandWhereToBuyContainer} />
+          <Route path="/producer/:id/about" exact component={BrandAboutContainer} />
+
+          <Route path="/producer/:id/signup" exact component={SignUpContainer} />
+          <Route path="/producer/:id/login" exact component={LoginContainer} />
+
+          <Route path="/producer/:id/user/:id" exact component={AdminHomeContainer} >
+            <Route path="/producer/:id/user/:id/analytics" exact component={AnalyticsContainer} />
+            <Route path="/producer/:id/user/:id/messages" exact component={AnalyticsContainer} />
+            <Route path="/producer/:id/user/:id/searches" exact component={AnalyticsContainer} />
+
+            <Route path="/producer/:id/user/:id/csv" exact component={UploadCSVContainer} />
+              <Route path="/producer/:id/user/:id/csv/new" exact component={UploadCSVContainer} />
+              <Route path="/producer/:id/user/:id/csv/:id" exact component={CSVShowContainer} />
+            </Route>
+          </Route>
+
+        </Route>
+
+
       </div>
     )
   }

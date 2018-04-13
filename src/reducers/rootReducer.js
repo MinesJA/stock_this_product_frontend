@@ -3,7 +3,6 @@ import Stores from './storesReducer'
 import Producers from './producersReducer'
 import Searches from './searchesReducer'
 import Messages from './messagesReducer'
-import Products from './productsReducer'
 import Users from './usersReducer'
 
 const rootReducer = combineReducers({
@@ -11,7 +10,6 @@ const rootReducer = combineReducers({
   Producers,
   Searches,
   Messages,
-  Products,
   Users
 })
 

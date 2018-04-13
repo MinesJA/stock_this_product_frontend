@@ -15,12 +15,4 @@ const MessageListItem = (props) => {
       )
 }
 
-
-
-// function mapStateToProps(state){
-//   return{
-//       loading: state.Messages.loading
-//     }
-// }
-
 export default MessageListItem

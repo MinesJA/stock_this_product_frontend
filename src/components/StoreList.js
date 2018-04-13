@@ -8,15 +8,11 @@ const StoreList = (props) => {
   const buildStores = () => {
     if(props.stores.length > 0){
       return props.stores.map((store, index)=>{
-        let { name, address_one, city, state, zipcode, phone, email, buys } = store
-        let storeObj = { name, address_one, city, state, zipcode, phone, email, buys }
-
-        return <Store key={index} storeObj={storeObj} />
+        return <Store key={index} storeObj={store} />
       })
     }
   }
 
-  console.log(props.searchObject)
   return(
     <Card>
       <Card.Content>

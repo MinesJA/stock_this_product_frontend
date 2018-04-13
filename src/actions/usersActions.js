@@ -39,7 +39,7 @@ export function signUp(producer_name, username, password, history){
         })
       })
       .then(()=>{
-        history.push('/messagesreport')
+        history.push('/analytics')
       })
   }
 }
@@ -85,7 +85,7 @@ export function login(username, password, history){
         }
       })
       .then(()=>{
-        history.push('/messagesreport')
+        history.push('/analytics')
       })
   }
 }
@@ -113,7 +113,7 @@ export function getUser(jwt, history){
         })
       })
       .then(()=>{
-        history.push('/messagesreport')
+        history.push('/analytics')
       })
   }
 }

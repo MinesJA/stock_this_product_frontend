@@ -1,5 +1,5 @@
 export const SET_SEARCH = 'SET_SEARCH'
-export const SEARCHES_LOADING = 'LOADING'
+export const SEARCHES_LOADING = 'SEARCHES_LOADING'
 
 
 export function searchesLoading(){
@@ -15,33 +15,32 @@ export function setSearch(searchObj){
   }
 }
 
-export const fetchGeocode = (searchTerms) => {
+export const fetchGeocode = (searchContent) => {
   return(dispatch) => {
 
     dispatch({
       type: SEARCHES_LOADING
     })
 
-    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerms.location}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`)
+    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchContent.searchTerm}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`)
       .then(resp => resp.json())
       .then(result => {
 
         let searchObject = {}
         searchObject["lat"] = result.results[0].geometry.location.lat
         searchObject["lng"] = result.results[0].geometry.location.lng
-        searchObject["radius"] = searchTerms.radius
+        searchObject["radius"] = searchContent.radius
+        searchObject["producer_id"] = searchContent.producer_id
+        searchObject["searchTerm"] = searchContent.searchTerm
 
-        dispatch({
-          type: SET_SEARCH,
-          payload: searchObject
-        })
 
         return searchObject
     })
   }
 }
 
-export const postSearchTerms = (searchTerm, radius) => {
+export const postSearchTerms = (searchObject) => {
+
   let options = {
     method: 'POST',
     headers: {
@@ -51,17 +50,37 @@ export const postSearchTerms = (searchTerm, radius) => {
     body: JSON.stringify({
       "searches":
         {
-          "search_term": searchTerm,
-          "radius": radius
+          "producer_id": searchObject.producer_id,
+          "search_term": searchObject.searchTerm,
+          "radius": searchObject.radius,
+          "latitude": searchObject.lat,
+          "longitude": searchObject.lng
         }
     })
   }
 
-  fetch('http://localhost:3000/api/v1/searches', options)
-    .then(resp => resp.json())
-    .then(result => {
-      console.log("Posted search to backend: ", result)
+  return(dispatch) => {
+
+    dispatch({
+      type: SEARCHES_LOADING
     })
+
+    return fetch('http://localhost:3000/api/v1/searches', options)
+      .then(resp => resp.json())
+      .then(result => {
+        alert(result.message)
+
+        // need to set search object here with returned id from post
+        // also need to make sure id is being returned from backend
+
+        searchObject["id"] = result.id
+        console.log("Posted search: ", result)
+        dispatch({
+          type: SET_SEARCH,
+          payload: searchObject
+        })
+      })
+  }
 }
 
 

@@ -14,7 +14,6 @@ class MapContainer extends Component {
   state = {
     modalOpen: false,
     emailModalOpen: false
-
   }
 
   renderModal = () => {
@@ -24,7 +23,7 @@ class MapContainer extends Component {
   }
 
   renderEmailModal = () => {
-    if(this.props.emailStore){
+    if(this.props.messageStore){
       return <EmailModal />
     }
   }
@@ -65,7 +64,7 @@ function mapStateToProps(state){
     storesLoading: state.Stores.storesLoading,
     searchObject: state.Searches.searchObject,
     selectedStores: state.Stores.selectedStores,
-    emailStore: state.Messages.emailStore
+    messageStore: state.Stores.messageStore
   }
 }
 

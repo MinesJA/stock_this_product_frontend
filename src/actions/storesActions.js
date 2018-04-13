@@ -1,6 +1,7 @@
 export const ADD_STORE = 'ADD_STORE'
 export const STORE_LOADING = 'STORE_LOADING'
 export const SELECT_STORES = 'SELECT_STORES'
+export const MESSAGE_STORE = 'MESSAGE_STORE'
 
 export function storesLoading(){
   return {
@@ -22,9 +23,15 @@ export function selectStores(stores){
   }
 }
 
+export function messageStore(store_id){
+  return {
+    type: MESSAGE_STORE,
+    payload: store_id
+  }
+}
+
 
 export function postStores(csv, buys, user){
-
   let formData = new FormData();
   formData.append('file', csv);
   formData.append('buys', buys)
@@ -36,28 +43,14 @@ export function postStores(csv, buys, user){
   }
 
   return(dispatch) => {
-    dispatch({
-      type: STORE_LOADING
-    })
-
     fetch(`http://localhost:3000/api/v1/csvs`, options)
       .then(resp => resp.json())
       .then(result => {
 
         alert(result.message)
 
-    })
+      })
   }
-
-  // "csv_file": csv,
-  // "buys": buys,
-  // "producer_id": user.producer_id
-
-  // form_for @csv, url: csvs_path, html: { multipart: true } do |form|
-  //  form.file_field :csv_file
-  //  form.submit
-  // end
-
 }
 
 export function fetchStores(searchObject){
@@ -71,6 +64,7 @@ export function fetchStores(searchObject){
     body: JSON.stringify({
       "stores":
         {
+          "producer_id": searchObject.producer_id,
           "latitude": searchObject.lat,
           "longitude": searchObject.lng,
           "radius": searchObject.radius
@@ -92,15 +86,6 @@ export function fetchStores(searchObject){
           type: SELECT_STORES,
           payload: result
         })
-
     })
   }
 }
-
-
-// export function initFileStack(){
-//
-//
-//
-//
-// }

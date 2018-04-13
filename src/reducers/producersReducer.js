@@ -1,14 +1,21 @@
-import { LOADING, ADD_PRODUCER, SELECT_PRODUCER } from '../actions/producersActions'
+import { PRODUCER_LOADING, FETCH_PRODUCERS, SELECT_PRODUCER } from '../actions/producersActions'
+
+const initialState = {
+  producersLoading: false,
+  producers: [],
+  selectedProducer: null
+}
 
 
-export default function Producers(state = {loading: false, producers: [], selectedProducer: null}, action) {
+
+export default function Products(state = initialState, action) {
   switch(action.type) {
 
-    case LOADING:
-      return Object.assign({}, state, {loading: !state.loading})
+    case PRODUCER_LOADING:
+      return Object.assign({}, state, {producersLoading: true})
 
-    case ADD_PRODUCER:
-      return Object.assign({}, state, {producers: [...state, action.payload]})
+    case FETCH_PRODUCERS:
+      return Object.assign({}, state, {producers: action.payload, producersLoading: false})
 
     case SELECT_PRODUCER:
       return Object.assign({}, state, {selectedProducer: action.payload})

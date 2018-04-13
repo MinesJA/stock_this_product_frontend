@@ -12,14 +12,13 @@ class AlertModal extends Component {
   }
 
   close = () => {
-    console.log("Clicked Close")
     this.setState({
       open: false
-    }, ()=>{console.log(this.state)})
+    })
   }
 
   render() {
-    
+
 
     return (
         <Modal style={this.state.style} dimmer={'blurring'} open={this.state.open} onClose={this.close}>

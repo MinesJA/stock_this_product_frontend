@@ -14,9 +14,8 @@ class NavBar extends Component {
 
     return (
       <Menu stackable>
-        <Menu.Item name="uploadcsv" as={NavLink} exact to="/csvs" active={activeItem === 'uploadcsv'} onClick={this.handleItemClick} />
-        <Menu.Item name="searchesreport" as={NavLink} exact to="/searches" active={activeItem === 'searchesreport'} onClick={this.handleItemClick} />
-        <Menu.Item name="messagesreport" as={NavLink} exact to="/messages" active={activeItem === 'messagesreport'} onClick={this.handleItemClick} />
+        <Menu.Item name="CSV Upload" as={NavLink} exact to="/csvs" active={activeItem === 'CSV Upload'} onClick={this.handleItemClick} />
+        <Menu.Item name="Analytics" as={NavLink} exact to="/analytics" active={activeItem === 'Analytics'} onClick={this.handleItemClick} />
 
         <Menu.Menu position='right'>
           <Menu.Item name='logout'  active={activeItem === 'logout'} onClick={()=>{this.props.logOut()}} />

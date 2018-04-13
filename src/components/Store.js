@@ -1,17 +1,15 @@
 import React from 'react'
 import { Feed, List, Button } from 'semantic-ui-react'
-import { emailStore } from '../actions/messagesActions'
+import { messageStore } from '../actions/storesActions'
 import { connect } from 'react-redux'
 
 const Store = (props) => {
 
-  let { name, address_one, city, state, zipcode, phone, email, buys } = props.storeObj
+  let { id, name, address_one, city, state, zipcode, phone, email, buys } = props.storeObj
 
   const emailThem = (e) => {
-    let emailStoreObj = {name, email}
-    console.log("emailStoreObj: ", emailStoreObj)
 
-    props.emailStore(emailStoreObj)
+    props.messageStore(id)
   }
 
   return(
@@ -21,7 +19,6 @@ const Store = (props) => {
         <Feed.Summary>
 
           <List>
-
             <List.Item>
               <List.Header>
                 {name}
@@ -66,4 +63,4 @@ const Store = (props) => {
 
 
 
-export default connect(null, { emailStore })(Store)
+export default connect(null, { messageStore })(Store)

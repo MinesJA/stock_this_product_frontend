@@ -1,6 +1,5 @@
 export const SEND_MESSAGE = 'SEND_MESSAGE'
 export const MESSAGE_LOADING = 'LOADING'
-export const EMAIL_STORE = 'SELECT_MESSAGE'
 
 
 export function messagesLoading(){
@@ -9,7 +8,8 @@ export function messagesLoading(){
   }
 }
 
-export function sendMessage(message){
+
+export function sendMessage(emailObject){
 
   let options = {
     method: 'POST',
@@ -18,48 +18,30 @@ export function sendMessage(message){
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      "stores":
+      "messages":
         {
-          "latitude": searchObject.lat,
-          "longitude": searchObject.lng,
-          "radius": searchObject.radius
+          "customer_email": emailObject.customer_email,
+           "email_subject": emailObject.email_subject,
+           "email_body": emailObject.email_body,
+           "search_id": emailObject.search_id,
+           "store_id": emailObject.store_id
         }
     })
   }
 
+
   return(dispatch) => {
 
-    dispatch({
-      type: MESSAGE_LOADING
-    })
+    fetch('http://localhost:3000/api/v1/messages', options)
+      .then(resp => resp.json())
+      .then(result => {
 
-    fetch('http://localhost:3000/api/v1/messages')
+        if(result.errors){
+          alert(result.errors)
+        } else {
+          alert(result.message)
+        }
 
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  return {
-    type: SEND_MESSAGE,
-    payload: message
+      })
   }
 }
-
-export function emailStore(store){
-  return {
-    type: EMAIL_STORE,
-    payload: store
-  }
-}
-// emailStore returns the store object which can be referenced in message composition

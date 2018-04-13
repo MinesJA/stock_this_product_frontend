@@ -21,11 +21,13 @@ console.log("Initial State from Index: ", store.getState())
 
 
 ReactDOM.render(
-  <Provider store={store} >
+
     <Router>
-      <App />
+      <Provider store={store} >
+        <App />
+      </Provider>
     </Router>
-  </Provider>,
+  ,
   document.getElementById('root'));
 
 registerServiceWorker();
