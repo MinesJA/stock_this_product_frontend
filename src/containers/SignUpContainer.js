@@ -3,7 +3,6 @@ import { Card, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { signUp } from '../actions/usersActions'
 import { connect } from 'react-redux'
-import loader from '../HOC/HOCLoading'
 
 
 class SignUpContainer extends Component {
@@ -20,6 +19,14 @@ class SignUpContainer extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    let producer = nextProps.producers.find( producer => producer.id === nextProps.selectedProducer )
+
+    this.setState({
+      producer
+    })
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -30,7 +37,7 @@ class SignUpContainer extends Component {
     e.preventDefault()
 
     if (this.state.password === this.state.confirmation){
-      this.props.signUp(this.state.producer, this.state.username, this.state.password, this.props.history)
+      this.props.signUp(this.props.selectedProducer, this.state.username, this.state.password, this.props.history)
     } else {
       alert("Passwords do not match!")
     }
@@ -45,10 +52,7 @@ class SignUpContainer extends Component {
           <Card.Header>Login</Card.Header>
           <Card.Description>
             <Form onSubmit={this.handleSubmit}>
-              <Form.Field>
-                <label>Brand Name</label>
-                <Form.Input placeholder="Bob's Beets" name="producer" value={this.state.producer} onChange={this.handleChange} />
-              </Form.Field>
+              <h4>Signing up with {this.state.producer ? this.state.producer.name : null}</h4>
               <Form.Field>
                 <label>User Name</label>
                 <Form.Input placeholder="BobboBob" name="username" value={this.state.username} onChange={this.handleChange} />
@@ -64,7 +68,7 @@ class SignUpContainer extends Component {
               <Form.Button>Signup</Form.Button>
             </Form>
           </Card.Description>
-          <Card.Meta><Link to={'/login'} activeStyle={{ color: 'red' }}>Login</Link></Card.Meta>
+          <Card.Meta><Link to={'/login'}>Login</Link></Card.Meta>
         </Card.Content>
       </Card>
     )
@@ -73,8 +77,10 @@ class SignUpContainer extends Component {
 
 function mapStateToProps(state){
   return{
-    currentUser: state.Users.currentUser
+    currentUser: state.Users.currentUser,
+    selectedProducer: state.Producers.selectedProducer,
+    producers: state.Producers.producers
   }
 }
 
-export default connect(mapStateToProps, { signUp } )(loader(SignUpContainer))
+export default connect(mapStateToProps, { signUp } )(SignUpContainer)

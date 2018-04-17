@@ -11,18 +11,25 @@ class NavBar extends Component {
 
   render() {
     const { activeItem } = this.state
-
     return (
       <Menu stackable>
-        <Menu.Item name="CSV Upload" as={NavLink} exact to="/csvs" active={activeItem === 'CSV Upload'} onClick={this.handleItemClick} />
-        <Menu.Item name="Analytics" as={NavLink} exact to="/analytics" active={activeItem === 'Analytics'} onClick={this.handleItemClick} />
+        <Menu.Item name="Analytics" as={NavLink} exact to={'/analytics'} active={activeItem === 'Analytics'} onClick={this.handleItemClick} />
+        <Menu.Item name="Searches Table" as={NavLink} exact to={'/searches'} active={activeItem === 'Searches Table'} onClick={this.handleItemClick} />
+        <Menu.Item name="Upload CSV" as={NavLink} exact to={'/csvs/new'} active={activeItem === 'Upload CSV'} onClick={this.handleItemClick} />
 
         <Menu.Menu position='right'>
-          <Menu.Item name='logout'  active={activeItem === 'logout'} onClick={()=>{this.props.logOut()}} />
+          { this.props.currentUser ? <Menu.Item name='user'>Logged in as: {this.props.currentUser.username}</Menu.Item> : null }
+          <Menu.Item name='logout'  active={activeItem === 'logout'} onClick={()=>{this.props.logOut(this.props.history)}} />
         </Menu.Menu>
       </Menu>
     )
   }
 }
 
-export default connect(null, { logOut })(NavBar)
+function mapStateToProps(state){
+  return {
+    currentUser: state.Users.currentUser
+  }
+}
+
+export default connect(mapStateToProps, { logOut })(NavBar)

@@ -1,8 +1,9 @@
-import { STORE_LOADING, ADD_STORE, SELECT_STORES, MESSAGE_STORE } from '../actions/storesActions'
+import { STORE_LOADING, SELECT_STORES, MESSAGE_STORE, SET_WON_STORES, SET_PROSPECT_STORES } from '../actions/storesActions'
 
 const initialState = {
   storesLoading: false,
-  stores: [],
+  wonStores: [],
+  prospectStores: [],
   selectedStores: [],
   messageStore: "",
   }
@@ -17,14 +18,6 @@ export default function Stores(state = initialState, action) {
         {storesLoading: true}
       )
 
-    case ADD_STORE:
-      return Object.assign(
-        {},
-        state,
-        {stores: [...state, action.payload],
-         storesLoading: false}
-      )
-
     case SELECT_STORES:
       return Object.assign(
         {},
@@ -34,11 +27,24 @@ export default function Stores(state = initialState, action) {
        )
 
     case MESSAGE_STORE:
-      console.log(action.payload)
       return Object.assign(
         {},
         state,
         {messageStore: action.payload}
+      )
+
+    case SET_WON_STORES:
+      return Object.assign(
+        {},
+        state,
+        {wonStores: action.payload}
+      )
+
+    case SET_PROSPECT_STORES:
+      return Object.assign(
+        {},
+        state,
+        {prospectStores: action.payload}
       )
 
     default:

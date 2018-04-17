@@ -17,7 +17,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-console.log("Initial State from Index: ", store.getState())
+
 
 
 ReactDOM.render(
@@ -26,8 +26,8 @@ ReactDOM.render(
       <Provider store={store} >
         <App />
       </Provider>
-    </Router>
-  ,
+    </Router>,
+
   document.getElementById('root'));
 
 registerServiceWorker();

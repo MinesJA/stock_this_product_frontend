@@ -2,17 +2,21 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
+import { Segment, List } from 'semantic-ui-react'
 // COMPONENTS
 import NavBar from './components/NavBar'
 import AdminNavBar from './components/AdminNavBar'
+import BrandHomeContainer from './containers/customerFacing/BrandHomeContainer'
 import BrandWhereToBuyContainer from './containers/customerFacing/BrandWhereToBuyContainer'
-import AnalyticsContainer from './containers/AnalyticsContainer'
-import UploadCSVContainer from './containers/UploadCSVContainer'
+import AdminAnalyticsContainer from './containers/adminFacing/AdminAnalyticsContainer'
+import AdminSearchesContainer from './containers/adminFacing/AdminSearchesContainer'
+import AdminUploadCSVContainer from './containers/adminFacing/AdminUploadCSVContainer'
 import SignUpContainer from './containers/SignUpContainer'
 import LoginContainer from './containers/LoginContainer'
 import { getUser } from './actions/usersActions'
-
-import loader from './HOC/HOCLoading'
+import { fetchProducers } from './actions/producersActions'
+import { fetchSearches } from './actions/searchesActions'
+import { fetchStores } from './actions/storesActions'
 // STYLING
 import './App.css';
 
@@ -25,46 +29,33 @@ class App extends Component {
     if(jwt && !this.props.currentUser){
       this.props.getUser(jwt, this.props.history)
     }
+
+    this.props.fetchProducers()
   }
 
   render() {
     return (
       <div>
-        { this.props.currentUser ? <AdminNavBar /> : <NavBar /> }
+        { this.props.currentUser ? <AdminNavBar history={this.props.history}/> : <NavBar /> }
 
-        <Route path="/signup" exact component={SignUpContainer} />
-        <Route path="/login" exact component={LoginContainer} />
+        <Route exact path="/" component={BrandHomeContainer} />
 
-        <Route path="/wheretobuy" exact component={BrandWhereToBuyContainer} />
+        <Route exact path="/wheretobuy" component={BrandWhereToBuyContainer} />
 
-        <Route path="/csvs" exact component={UploadCSVContainer} />
-        <Route path="/analytics" exact component={AnalyticsContainer} />
+        <Route exact path="/signup" component={SignUpContainer} />
+        <Route exact path="/login" component={LoginContainer} />
 
+        <Route exact path="/searches" component={AdminSearchesContainer} />
+        <Route exact path="/analytics" component={AdminAnalyticsContainer} />
+        <Route path="/csvs/new" component={AdminUploadCSVContainer} />
 
-
-
-        <Route path="/producer/:id" exact component={BrandHomeContainer} >
-          <Route path="/producer/:id/products" exact component={BrandProductsContainer} />
-          <Route path="/producer/:id/wheretobuy" exact component={BrandWhereToBuyContainer} />
-          <Route path="/producer/:id/about" exact component={BrandAboutContainer} />
-
-          <Route path="/producer/:id/signup" exact component={SignUpContainer} />
-          <Route path="/producer/:id/login" exact component={LoginContainer} />
-
-          <Route path="/producer/:id/user/:id" exact component={AdminHomeContainer} >
-            <Route path="/producer/:id/user/:id/analytics" exact component={AnalyticsContainer} />
-            <Route path="/producer/:id/user/:id/messages" exact component={AnalyticsContainer} />
-            <Route path="/producer/:id/user/:id/searches" exact component={AnalyticsContainer} />
-
-            <Route path="/producer/:id/user/:id/csv" exact component={UploadCSVContainer} />
-              <Route path="/producer/:id/user/:id/csv/new" exact component={UploadCSVContainer} />
-              <Route path="/producer/:id/user/:id/csv/:id" exact component={CSVShowContainer} />
-            </Route>
-          </Route>
-
-        </Route>
-
-
+        <Segment padded size='large' inverted>
+          <List>
+            <List.Item>About</List.Item>
+            <List.Item>GitHub</List.Item>
+            <List.Item>Something</List.Item>
+          </List>
+        </Segment>
       </div>
     )
   }
@@ -72,8 +63,9 @@ class App extends Component {
 
 function mapStateToProps(state){
   return {
-    currentUser: state.Users.currentUser
+    currentUser: state.Users.currentUser,
+    selectedProducer: state.Producers.selectedProducer
   }
 }
 
-export default withRouter(connect(mapStateToProps, { getUser })(loader(App)));
+export default withRouter(connect(mapStateToProps, { getUser, fetchProducers, fetchSearches, fetchStores })(App));

@@ -1,5 +1,8 @@
 export const SET_SEARCH = 'SET_SEARCH'
 export const SEARCHES_LOADING = 'SEARCHES_LOADING'
+export const FETCH_SEARCHES = 'FETCH_SEARCHES'
+export const STORES_LOADING = 'STORES_LOADING'
+export const SELECT_STORES = 'SELECT_STORES'
 
 
 export function searchesLoading(){
@@ -33,13 +36,12 @@ export const fetchGeocode = (searchContent) => {
         searchObject["producer_id"] = searchContent.producer_id
         searchObject["searchTerm"] = searchContent.searchTerm
 
-
         return searchObject
     })
   }
 }
 
-export const postSearchTerms = (searchObject) => {
+export const postSearch = (searchObject) => {
 
   let options = {
     method: 'POST',
@@ -54,7 +56,7 @@ export const postSearchTerms = (searchObject) => {
           "search_term": searchObject.searchTerm,
           "radius": searchObject.radius,
           "latitude": searchObject.lat,
-          "longitude": searchObject.lng
+          "longitude": searchObject.lng,
         }
     })
   }
@@ -65,20 +67,59 @@ export const postSearchTerms = (searchObject) => {
       type: SEARCHES_LOADING
     })
 
+    dispatch({
+      type: STORES_LOADING
+    })
+
     return fetch('http://localhost:3000/api/v1/searches', options)
       .then(resp => resp.json())
       .then(result => {
-        alert(result.message)
+        if(result.error){
 
-        // need to set search object here with returned id from post
-        // also need to make sure id is being returned from backend
+          alert(result.error)
 
-        searchObject["id"] = result.id
-        console.log("Posted search: ", result)
+        } else {
+          console.log(result.message)
+
+          searchObject["id"] = result.id
+          searchObject["buys"] = result.buys
+          searchObject["numberWon"] = result.number_won
+          searchObject["numberProspect"] = result.number_prospect
+
+          dispatch({
+            type: SET_SEARCH,
+            payload: searchObject
+          })
+
+          dispatch({
+            type: SELECT_STORES,
+            payload: result.found_stores
+          })
+        }
+      })
+  }
+}
+
+
+
+
+export const fetchSearches = () => {
+
+  return(dispatch) => {
+
+    dispatch({
+      type: SEARCHES_LOADING
+    })
+
+    return fetch('http://localhost:3000/api/v1/searches')
+      .then(resp => resp.json())
+      .then(result => {
+        console.log("Fetched searches: ", result)
         dispatch({
-          type: SET_SEARCH,
-          payload: searchObject
+          type: FETCH_SEARCHES,
+          payload: result
         })
+
       })
   }
 }

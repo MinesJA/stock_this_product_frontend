@@ -17,7 +17,7 @@ class MapContainer extends Component {
   }
 
   renderModal = () => {
-    if(this.props.selectedStores.length > 0 && !this.props.selectedStores[0].buys){
+    if(this.props.selectedStores.length > 0 && !this.props.searchObject.buys){
       return <AlertModal />
     }
   }

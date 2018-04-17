@@ -28,13 +28,12 @@ export function fetchProducers(){
     return fetch(`http://localhost:3000/api/v1/producers`)
       .then(resp => resp.json())
       .then(result => {
+        console.log(result)
 
         dispatch({
           type: FETCH_PRODUCERS,
           payload: result
         })
-
-        return result
     })
   }
 }

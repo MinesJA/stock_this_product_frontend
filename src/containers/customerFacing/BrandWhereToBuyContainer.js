@@ -2,41 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // COMPONENTS
 import AreaSearchForm from '../../components/AreaSearchForm';
-import SelectProductsContainer from './SelectProductsContainer';
+import ProductsList from '../../components/ProductsList'
 import BrandMapContainer from './BrandMapContainer';
 import {fetchProducers } from '../../actions/producersActions'
+import loader from '../../HOC/HOCLoading'
 
 class BrandWhereToBuyContainer extends Component {
 
-  state = {
-    producerOptions: []
-  }
-
-  componentDidMount(){
-    this.props.fetchProducers()
-      .then((producers)=> {
-        let array = []
-
-        producers.map((producer)=>{
-          console.log(producer)
-          let object = {}
-          object["text"] = producer.name
-          object["value"] = producer.id
-          array.push(object)
-        })
-
-        this.setState({
-          producerOptions: array
-        })
-      })
-  }
-
 
   render() {
+    let producer = this.props.producers.find( producer => producer.id === this.props.selectedProducer )
+
     return (
       <div>
-        <AreaSearchForm producersOptions={this.state.producerOptions}/>
-        { this.props.searchObject.lat > 0 ? <BrandMapContainer /> : <SelectProductsContainer /> }
+        <AreaSearchForm />
+        { this.props.searchObject.lat > 0 ? <BrandMapContainer /> : null }
       </div>
     )
   }
@@ -44,8 +24,11 @@ class BrandWhereToBuyContainer extends Component {
 
 function mapStateToProps (state) {
   return {
-    searchObject: state.Searches.searchObject
+    searchObject: state.Searches.searchObject,
+    selectedProducer: state.Producers.selectedProducer,
+    producers: state.Producers.producers,
+    loading: state.Producers.producersLoading
   }
 }
 
-export default connect(mapStateToProps, { fetchProducers })(BrandWhereToBuyContainer);
+export default connect(mapStateToProps, { fetchProducers })(loader(BrandWhereToBuyContainer));

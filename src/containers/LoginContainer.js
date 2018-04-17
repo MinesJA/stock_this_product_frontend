@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../actions/usersActions'
 
+
 class LoginContainer extends Component {
   state = {
     username: "",
@@ -31,7 +32,6 @@ class LoginContainer extends Component {
   render(){
 
     return(
-
       <Card>
         <Card.Content>
           <Card.Header>Login</Card.Header>
@@ -48,12 +48,11 @@ class LoginContainer extends Component {
               <Form.Button>Login</Form.Button>
             </Form>
           </Card.Description>
-          <Card.Meta><Link to={'/signup'} activeStyle={{ color: 'red' }}>Sign Up</Link></Card.Meta>
+          <Card.Meta><Link to={'/signup'}>Sign Up</Link></Card.Meta>
         </Card.Content>
       </Card>
     )
   }
-
 }
 
 function mapStateToProps(state){

@@ -1,18 +1,12 @@
-export const ADD_STORE = 'ADD_STORE'
 export const STORE_LOADING = 'STORE_LOADING'
 export const SELECT_STORES = 'SELECT_STORES'
 export const MESSAGE_STORE = 'MESSAGE_STORE'
+export const SET_WON_STORES = 'SET_WON_STORES'
+export const SET_PROSPECT_STORES = 'SET_PROSPECT_STORES'
 
 export function storesLoading(){
   return {
     type: STORE_LOADING
-  }
-}
-
-export function addStore(store){
-  return {
-    type: ADD_STORE,
-    payload: store
   }
 }
 
@@ -27,6 +21,29 @@ export function messageStore(store_id){
   return {
     type: MESSAGE_STORE,
     payload: store_id
+  }
+}
+
+
+export function fetchStores(producer_id){
+  console.log("Fetch Stores: ", producer_id)
+  
+  return(dispatch) => {
+    fetch(`http://localhost:3000/api/v1/stores/${producer_id}`)
+      .then(resp => resp.json())
+      .then(result => {
+
+        dispatch({
+          type: SET_WON_STORES,
+          payload: result.wonStores
+        })
+
+        dispatch({
+          type: SET_PROSPECT_STORES,
+          payload: result.prospectStores
+        })
+
+      })
   }
 }
 
@@ -50,42 +67,5 @@ export function postStores(csv, buys, user){
         alert(result.message)
 
       })
-  }
-}
-
-export function fetchStores(searchObject){
-
-  let options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      "stores":
-        {
-          "producer_id": searchObject.producer_id,
-          "latitude": searchObject.lat,
-          "longitude": searchObject.lng,
-          "radius": searchObject.radius
-        }
-    })
-  }
-
-  return(dispatch) => {
-
-    dispatch({
-      type: STORE_LOADING
-    })
-
-    fetch(`http://localhost:3000/api/v1/stores/fetchnear`, options)
-      .then(resp => resp.json())
-      .then(result => {
-
-        dispatch({
-          type: SELECT_STORES,
-          payload: result
-        })
-    })
   }
 }

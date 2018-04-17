@@ -4,7 +4,7 @@ export const LOG_OUT = 'LOG_OUT'
 
 
 
-export function signUp(producer_name, username, password, history){
+export function signUp(producer_id, username, password, history){
   let options = {
     method: 'POST',
     headers: {
@@ -14,7 +14,7 @@ export function signUp(producer_name, username, password, history){
     body: JSON.stringify({
       "users":
         {
-          producer_name,
+          producer_id,
           username,
           password
         }
@@ -131,6 +131,8 @@ export function logOut(history){
     dispatch({
       type: LOG_OUT
     })
+
+    history.push('/')
   }
 }
 

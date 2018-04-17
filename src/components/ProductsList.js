@@ -1,27 +1,24 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
-
 import Product from './Product'
 
 const ProductsList = (props) => {
 
   const buildProducts = () => {
-    return props.fakeProps.map((product, index)=>{
-      let { name, description, size, imagePath } = product
-
-      return(
-        <Grid.Column key={index}>
-          <Product name={name} description={description} size={size} imagePath={imagePath} />
-        </Grid.Column>
-      )
-    })
+    return props.products.map( (product, index) =>
+      <Grid.Column key={index}>
+        <Product product={product} />
+      </Grid.Column>
+    )
   }
 
+
   return(
-    <Grid container columns={3}>
-      {buildProducts()}
+    <Grid container columns={4}>
+      {props.products ? buildProducts() : null}
     </Grid>
   )
 }
+
 
 export default ProductsList

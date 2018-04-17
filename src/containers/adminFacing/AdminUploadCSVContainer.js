@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import UploadStores from '../components/UploadStores'
+import UploadStores from '../../components/UploadStores'
 import { Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 class UploadCSVContainer extends Component {
 
   componentDidMount(){
+    console.log("UPload container mounted")
     if(!this.props.currentUser){
       this.props.history.push("/login")
     }

@@ -3,16 +3,17 @@ import { PRODUCER_LOADING, FETCH_PRODUCERS, SELECT_PRODUCER } from '../actions/p
 const initialState = {
   producersLoading: false,
   producers: [],
-  selectedProducer: null
+  selectedProducer: 1,
+  attemptedLoading: false
 }
 
 
 
-export default function Products(state = initialState, action) {
+export default function Producers(state = initialState, action) {
   switch(action.type) {
 
     case PRODUCER_LOADING:
-      return Object.assign({}, state, {producersLoading: true})
+      return Object.assign({}, state, {producersLoading: true, attemptedLoading: true})
 
     case FETCH_PRODUCERS:
       return Object.assign({}, state, {producers: action.payload, producersLoading: false})
