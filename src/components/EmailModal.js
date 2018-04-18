@@ -4,6 +4,7 @@ import { sendMessage } from '../actions/messagesActions'
 import { connect } from 'react-redux'
 import { selectProducer } from '../actions/producersActions'
 import { messageStore } from '../actions/storesActions'
+import * as emailjs from "emailjs-com"
 
 class EmailModal extends Component {
   state = {
@@ -21,6 +22,8 @@ class EmailModal extends Component {
     search_id: ""
   }
 
+
+
   componentDidMount(){
     let producer = this.props.producers.find((producer)=>{return producer.id === this.props.producer_id})
     let store = this.props.selectedStores.find((store)=>{return store.id === this.props.store_id})
@@ -30,11 +33,11 @@ class EmailModal extends Component {
       store,
       emailSubject: `Would you carry ${producer.name}?`,
       emailBody: `Hey there, \n \n  I live in the area and shop at ${store.name} but I noticed you don't carry ${producer.name}. Is that something you'd consider picking up? I know I'd buy it if you carried it. \n \n Thanks! \n A Loyal Customer`
-    }, ()=>{console.log("Mounted: ", this.state)})
+    })
   }
 
   sendEmail = () => {
-
+    debugger
     this.setState({
       open: false,
     })
@@ -48,6 +51,28 @@ class EmailModal extends Component {
       search_id: this.props.searchObject.id
     }
 
+    // var templateParams = {
+    //   store_email: this.state.store.email,
+    //   customer_name: "Customer Name",
+    //   customer_email: this.state.customerEmail,
+    //   email_subject: this.state.emailSubject,
+    //   email_body: this.state.emailBody
+    // }
+
+    // parameters: service_id, template_id, template_parameters
+    emailjs.send("gmail", "template_9io0kVmF", {
+      store_email: this.state.store.email,
+      customer_name: "Customer Name",
+      customer_email: this.state.customerEmail,
+      email_subject: this.state.emailSubject,
+      email_body: this.state.emailBody
+    }, "user_ou4bCgaud3G6qLrfXva49")
+      .then(function(response) {
+       console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+      }, function(err) {
+       console.log("FAILED. error=", err);
+      });
+
     this.props.sendMessage(emailObject)
 
   }
@@ -55,7 +80,7 @@ class EmailModal extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
-    }, ()=>{console.log(this.state)})
+    })
   }
 
   close = () => {

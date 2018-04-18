@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Radio, Icon, Label, Form } from 'semantic-ui-react'
+import { Segment, Radio, Icon, Label } from 'semantic-ui-react'
 
 
 class MapOptions extends Component {

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.7.2",
+    "emailjs-com": "^2.1.1",
     "google-maps-react": "^1.1.11",
     "lodash": "^4.17.5",
     "react": "^16.3.1",

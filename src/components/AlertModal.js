@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Image, Modal } from 'semantic-ui-react'
+import alertImage from '../images/ohno.jpg'
 
 class AlertModal extends Component {
   state = {
@@ -24,13 +25,12 @@ class AlertModal extends Component {
         <Modal style={this.state.style} dimmer={'blurring'} open={this.state.open} onClose={this.close}>
           <Modal.Header>No stores around...but we can fix that!</Modal.Header>
           <Modal.Content image>
-            <Image wrapped size='medium' src='src/images/grocery_store.jpeg' />
+            <Image wrapped size='medium' src={alertImage} />
             <Modal.Description>
-              <p>Oh no! It looks like there aren't any stores in your area that are currently carrying our products.</p>
-              <p>But we can fix that! We've got a prewritten message that we'd love for you to send to the store of your choice.</p>
-              <br></br>
-              <p>Would you be willing to send an email asking the store/s of your choosing to pick up our products?</p>
-              <p>If you do we'll give you 10% off your next purchase!</p>
+              <h4>Oh no! It looks like there aren't any stores in your area that are currently carrying our products.</h4>
+              <h4>But we can fix that!</h4>
+              <h4>Would you be willing to send an email asking the store/s of your choosing to pick up our products?</h4>
+              <h4>If so, all you have to do is click the "Email Them" button underneath their name.</h4>
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>

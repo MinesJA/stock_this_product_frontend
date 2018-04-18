@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Grid, Table, Icon, Segment, Button, Header } from 'semantic-ui-react'
+import { Grid, Table, Icon, Segment, Button, Header, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class AdminSearchesContainer extends Component {
@@ -51,23 +51,17 @@ class AdminSearchesContainer extends Component {
 
    console.log(this.state.expandMessage)
    return(
-     <Grid.Column width={12}>
-       <Grid.Row>
-        <Segment.Group>
-          <Segment>Message</Segment>
-          To:
-          <Segment.Group>nothing</Segment.Group>
-          From:
-          <Segment.Group>{customer_email}</Segment.Group>
-          Subject:
-          <Segment.Group>{email_subject}</Segment.Group>
-          Message:
-          <Segment.Group>{email_body}</Segment.Group>
-          <Button floated={'right'} color="red" onClick={this.closeMessage}>X</Button>
-        </Segment.Group>
+     <Message>
+       <Message.Header>Sent Message</Message.Header>
+       <Message.List>
+         <Message.Item>TO: {customer_email}</Message.Item>
+         <Message.Item>FROM: {customer_email}</Message.Item>
+         <Message.Item>SUBJECT: {email_subject}</Message.Item>
+         <Message.Item>BODY: {email_body}</Message.Item>
+       </Message.List>
+       <Button floated={'right'} color="red" onClick={this.closeMessage}>X</Button>
+     </Message>
 
-       </Grid.Row>
-     </Grid.Column>
    )
  }
 
@@ -87,11 +81,11 @@ class AdminSearchesContainer extends Component {
                   See a list of all searches by customers and any messages they may have sent.
                 </Header.Subheader>
               </Header>
-
+              {this.state.expandMessage ? this.renderMessage() : null}
           </Grid.Column>
         </Grid.Row>
 
-        {this.state.expandMessage ? this.renderMessage() : null}
+
 
         <Grid.Row>
           <Grid.Column width={12}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Feed, List, Button } from 'semantic-ui-react'
+import { Feed, List, Button, Icon } from 'semantic-ui-react'
 import { messageStore } from '../actions/storesActions'
 import { connect } from 'react-redux'
 
@@ -14,17 +14,16 @@ const Store = (props) => {
 
   return(
     <Feed.Event>
-      <Feed.Label image='src/images/grocery_store.jpeg' />
+      <Feed.Label>
+        <Icon name="food" />
+      </Feed.Label>
+
       <Feed.Content>
         <Feed.Summary>
-
+          {name}
+        </Feed.Summary>
+        <Feed.Extra>
           <List>
-            <List.Item>
-              <List.Header>
-                {name}
-              </List.Header>
-            </List.Item>
-
             <List.Item>
               <List.Content>
                 {address_one}
@@ -48,14 +47,13 @@ const Store = (props) => {
                 :
               <List.Item>
                 <List.Content>
-                  <Button size='medium' primary onClick={emailThem}>Email Them!</Button>
+                  <Button size='medium' color="red" onClick={emailThem}>Email Them!</Button>
                 </List.Content>
               </List.Item>
             }
 
           </List>
-
-        </Feed.Summary>
+        </Feed.Extra>
       </Feed.Content>
     </Feed.Event>
   )

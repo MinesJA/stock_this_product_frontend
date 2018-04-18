@@ -9,6 +9,7 @@ import GoogleMap from '../../components/GoogleMap'
 import StoreList from '../../components/StoreList'
 import AlertModal from '../../components/AlertModal'
 import EmailModal from '../../components/EmailModal'
+import AreaSearchForm from '../../components/AreaSearchForm';
 
 class MapContainer extends Component {
   state = {
@@ -54,6 +55,27 @@ class MapContainer extends Component {
           </Grid.Row>
         </Grid>
       </div>
+
+
+
+      <Grid columns={2} divided>
+        <Grid.Row>
+          <Grid.Column width={10}>
+
+              <AreaSearchForm />
+
+
+              <BrandMapContainer />
+
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <Segment>
+
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+
+      </Grid>
     )
   }
 }

@@ -7,7 +7,7 @@ const ProductsList = (props) => {
   const buildProducts = () => {
     return props.products.map( (product, index) =>
       <Grid.Column key={index}>
-        <Product product={product} />
+        <Product product={product} history={props.history}/>
       </Grid.Column>
     )
   }

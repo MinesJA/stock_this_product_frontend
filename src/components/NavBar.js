@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Menu, Dropdown } from 'semantic-ui-react'
+import { Menu, Dropdown, Icon } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { selectProducer } from '../actions/producersActions'
-
+import symbol from '../images/mayo_symbol.png'
 
 class NavBar extends Component {
   state = {
@@ -36,10 +36,11 @@ class NavBar extends Component {
 
     return (
       <Menu stackable>
-        <Dropdown name="producer_id" selection onChange={(e, { name, value })=> this.props.selectProducer(value)} wrapSelection={false} options={this.state.producer_options} />
+        <Menu.Item>
+          <img src={symbol} />
+        </Menu.Item>
 
         <Menu.Item name='home' as={NavLink} exact to={`/`} active={activeItem === 'home'} onClick={this.handleItemClick} />
-        <Menu.Item name='products' as={NavLink} exact to={`/products`} active={activeItem === 'products'} onClick={this.handleItemClick} />
         <Menu.Item name='whereToBuy' as={NavLink} exact to={`/wheretobuy`} active={activeItem === 'whereToBuy'} onClick={this.handleItemClick} />
 
         <Menu.Menu position='right'>

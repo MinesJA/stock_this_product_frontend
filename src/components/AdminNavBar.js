@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
 import { logOut } from '../actions/usersActions'
 import { connect } from 'react-redux'
+import symbol from '../images/mayo_symbol.png'
 
 class NavBar extends Component {
   state = { activeItem: 'whereToBuy' }
@@ -13,6 +14,9 @@ class NavBar extends Component {
     const { activeItem } = this.state
     return (
       <Menu stackable>
+        <Menu.Item>
+          <img src={symbol} />
+        </Menu.Item>
         <Menu.Item name="Analytics" as={NavLink} exact to={'/analytics'} active={activeItem === 'Analytics'} onClick={this.handleItemClick} />
         <Menu.Item name="Searches Table" as={NavLink} exact to={'/searches'} active={activeItem === 'Searches Table'} onClick={this.handleItemClick} />
         <Menu.Item name="Upload CSV" as={NavLink} exact to={'/csvs/new'} active={activeItem === 'Upload CSV'} onClick={this.handleItemClick} />

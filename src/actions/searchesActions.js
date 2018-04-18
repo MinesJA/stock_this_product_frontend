@@ -79,7 +79,6 @@ export const postSearch = (searchObject) => {
           alert(result.error)
 
         } else {
-          console.log(result.message)
 
           searchObject["id"] = result.id
           searchObject["buys"] = result.buys
@@ -114,7 +113,7 @@ export const fetchSearches = () => {
     return fetch('http://localhost:3000/api/v1/searches')
       .then(resp => resp.json())
       .then(result => {
-        console.log("Fetched searches: ", result)
+        
         dispatch({
           type: FETCH_SEARCHES,
           payload: result

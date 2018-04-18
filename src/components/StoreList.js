@@ -14,7 +14,7 @@ const StoreList = (props) => {
   }
 
   return(
-    <Card>
+    <Card fluid>
       <Card.Content>
         <Card.Header>
           Stores within { props.searchObject ? props.searchObject.radius : null } miles

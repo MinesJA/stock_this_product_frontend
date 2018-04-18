@@ -26,8 +26,7 @@ export function messageStore(store_id){
 
 
 export function fetchStores(producer_id){
-  console.log("Fetch Stores: ", producer_id)
-  
+
   return(dispatch) => {
     fetch(`http://localhost:3000/api/v1/stores/${producer_id}`)
       .then(resp => resp.json())

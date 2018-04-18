@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form } from 'semantic-ui-react';
+import { Form, Card } from 'semantic-ui-react';
 import { fetchGeocode, postSearch } from '../actions/searchesActions'
 import { withRouter } from 'react-router'
 import loader from '../HOC/HOCLoading'
@@ -36,20 +36,22 @@ class AreaSearchForm extends Component {
 
   render(){
     return(
-      <div>
-        <div>FIND PRODUCTS NEAR YOU</div>
-
-        <Form onSubmit={this.submitForm}>
-          <Form.Group>
-
-          <Form.Input name="searchTerm" placeholder="Enter Zip Code, Address, or City..." onChange={this.handleChange} />
-          <div>within...</div>
-          <Form.Dropdown name="radius" placeholder="20 miles" onChange={this.handleChange} selection wrapSelection={false} options={this.state.radiusOptions} />
-          <Form.Button primary>FIND PROUDCTS</Form.Button>
-          </Form.Group>
-        </Form>
-        
-      </div>
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>FIND PRODUCTS NEAR YOU</Card.Header>
+          <Card.Meta>Enter any kind of address (zipcode, city, crossstreet) to find our products near that area</Card.Meta>
+          <Card.Description>
+            <Form onSubmit={this.submitForm}>
+              <Form.Group>
+              <Form.Input name="searchTerm" placeholder="Enter Zip Code, Address, or City..." onChange={this.handleChange} />
+              <div>within...</div>
+              <Form.Dropdown name="radius" placeholder="20 miles" onChange={this.handleChange} selection wrapSelection={false} options={this.state.radiusOptions} />
+              <Form.Button primary>FIND PROUDCTS</Form.Button>
+              </Form.Group>
+            </Form>
+          </Card.Description>
+        </Card.Content>
+      </Card>
     )
   }
 }
